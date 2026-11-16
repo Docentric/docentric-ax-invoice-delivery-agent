@@ -29,10 +29,8 @@ Each release contains the source archives and the model file for import with Mod
 
 ## Articles
 
-https://ax.docentric.com/exploring-ai-powered-invoice-troubleshooting-in-d365fo-with-docentric-and-business-skills/
-
 You can learn more about the solution here:
-- [Exploring AI-Powered Invoice Troubleshooting in D365FO with Docentric and Business Skills](https://ax.docentric.com/bulk-upload-attachments-in-d365fo-with-docentric-ax](https://ax.docentric.com/exploring-ai-powered-invoice-troubleshooting-in-d365fo-with-docentric-and-business-skills/)
+- [Exploring AI-Powered Invoice Troubleshooting in D365FO with Docentric and Business Skills](https://ax.docentric.com/exploring-ai-powered-invoice-troubleshooting-in-d365fo-with-docentric-and-business-skills)
 
 ## Prerequisites
 
