@@ -46,11 +46,6 @@ Two editions of the solution are available:
 
 A complete feature list with a comparison to standard D365FO solutions and what’s part of the Free and Full Edition is described here: https://ax.docentric.com/feature-list.
 
-## Download
-
-Each release contains the source archives and the model file for import with ModelUtil.
-[Releases](../../releases)
-
 ## Articles
 
 You can learn more about the solution here:
