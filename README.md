@@ -109,7 +109,9 @@ The repository starts with the following folder structure:
 - `AOS_RemoveMetadataSymbolicLinks.ps1`: *Script to remove the symbolic links from the AosService\PackagesLocalDirectory folder.*
 - `.gitattributes`: *Defines project-based rules for manipulating files and paths attributes when a Git action is performed (e.g., line-endings, file compare, etc.).*
 - `.gitignore`: *Defines project-based rules for ignoring files and folders in the Git repository.*
-- `.mcp.json`: *MCP server configuration (GitHub MCP server) picked up by Visual Studio and other MCP-compatible tools when the repository folder is opened.*
+- `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`: *Instructions for AI coding agents (GitHub Copilot, Claude Code), including the code review checklist.*
+- `.claude/skills`: *Development workflow skills for the agents: `create-branch`, `plan`, `implement`, `create-pull-request`, `code-review`.*
+- `.mcp.json`: *GitHub MCP server for Claude Code (needs the `GITHUB_PERSONAL_ACCESS_TOKEN` environment variable). Visual Studio uses `Projects/DocInvoiceDeliveryAgent/.mcp.json` and signs in with your GitHub account.*
 
 ## License
 
