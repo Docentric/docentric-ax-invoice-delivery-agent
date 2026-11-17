@@ -33,15 +33,30 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="AxClass\McpBusinessSkillFromResourceProvider_DIDA_Extension">
+      <SubType>Content</SubType>
+      <Name>McpBusinessSkillFromResourceProvider_DIDA_Extension</Name>
+      <Link>McpBusinessSkillFromResourceProvider_DIDA_Extension</Link>
+    </Content>
     <Content Include="AxClass\SysOutgoingEmailTableForm_DIDA_Extension">
       <SubType>Content</SubType>
       <Name>SysOutgoingEmailTableForm_DIDA_Extension</Name>
       <Link>DuplicateMessage\SysOutgoingEmailTableForm_DIDA_Extension</Link>
     </Content>
-    <Content Include="AxSkill\DocAgentEmailInvestigationSkill">
+    <Content Include="AxResource\DocInvoiceEmailInvestigationSkill">
       <SubType>Content</SubType>
-      <Name>DocAgentEmailInvestigationSkill</Name>
-      <Link>Skills\DocAgentEmailInvestigationSkill</Link>
+      <Name>DocInvoiceEmailInvestigationSkill</Name>
+      <Link>DocInvoiceEmailInvestigationSkill</Link>
+    </Content>
+    <Content Include="AxSkill\DocInvoiceEmailInvestigationSkill">
+      <SubType>Content</SubType>
+      <Name>DocInvoiceEmailInvestigationSkill</Name>
+      <Link>DocInvoiceEmailInvestigationSkill</Link>
+    </Content>
+    <Content Include="docentric-invoice-email-investigation-skill.txt">
+      <SubType>Content</SubType>
+      <Name>docentric-invoice-email-investigation-skill.txt</Name>
+      <DependentUpon>AxResource\DocInvoiceEmailInvestigationSkill</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

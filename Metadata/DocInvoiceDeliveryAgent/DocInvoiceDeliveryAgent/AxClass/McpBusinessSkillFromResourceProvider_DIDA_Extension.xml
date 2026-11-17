@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>McpBusinessSkillFromResourceProvider_DIDA_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// Extends <c>McpBusinessSkillFromResourceProvider</c> to register all built-in Docentric Invoice Delivery Agents skill resources.
+/// This ensures related skills are automatically synced via <c>McpBusinessSkillSyncSetupAsync</c> on every deploy.
+/// </summary>
+[ExtensionOf(classStr(McpBusinessSkillFromResourceProvider))]
+internal final class McpBusinessSkillFromResourceProvider_DIDA_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>skillResourceNames</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Appends all expense management skill resources to the list of skills to be published.
+    /// </summary>
+    /// <returns>The updated <c>List</c> of resource names.</returns>
+    public List skillResourceNames()
+    {
+        List names = next skillResourceNames();
+
+        names.addEnd(resourceStr(DocInvoiceEmailInvestigationSkill));
+
+        return names;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

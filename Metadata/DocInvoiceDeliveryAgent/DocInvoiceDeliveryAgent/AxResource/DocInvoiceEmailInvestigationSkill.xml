@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxResource xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>DocInvoiceEmailInvestigationSkill</Name>
+	<FileName>docentric-invoice-email-investigation-skill.txt</FileName>
+	<RelativeUriInModelStore>DocInvoiceDeliveryAgent\DocInvoiceDeliveryAgent\AxResource\ResourceContent\Text\docentric-invoice-email-investigation-skill.txt</RelativeUriInModelStore>
+	<TypeOfResource>Text</TypeOfResource>
+</AxResource>

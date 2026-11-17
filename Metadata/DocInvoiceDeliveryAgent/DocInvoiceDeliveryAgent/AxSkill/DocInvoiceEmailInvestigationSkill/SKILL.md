@@ -1,5 +1,5 @@
 ---
-name: docentric-agent-email-investigation
+name: docentric-invoice-email-investigation
 description: Use this skill when a customer reports that one or more sales, free-text or project invoices were not received by email.
 metadata:
   author: 
