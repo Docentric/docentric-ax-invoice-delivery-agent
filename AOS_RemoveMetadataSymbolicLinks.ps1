@@ -71,7 +71,7 @@ Write-Host "GIT Metadata Folder: $RepoMetadataPath"
 ## Remove all symbolic links
 Write-Host "`nStarting to remove AOS metadata symbolic links...`n"
 
-$RepoModelFolders = @("DocentricBulkUploadShowcase")
+$RepoModelFolders = @("DocInvoiceDeliveryAgent")
 
 foreach ($ModelFolder in $RepoModelFolders)
 {

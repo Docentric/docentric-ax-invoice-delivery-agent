@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SysOutgoingEmailTableForm_DIDA_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+using System.IO;
+using System.Net.Mail;
+using Docentric.AX.Email;
+using Docentric.AX.Framework.Utilities;
+
+/// <summary>
+/// The class SysOutgoingEmailTableForm_DC_Extension is an extension of the form SysOutgoingEmailTable.
+/// </summary>
+[ExtensionOf(formStr(SysOutgoingEmailTable))]
+final class SysOutgoingEmailTableForm_DIDA_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>SysOutgoingEmailTable_OnInitialized</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Add dynamics buttons to the form.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormEventHandler(formStr(SysOutgoingEmailTable), FormEventType::Initialized)]
+    public static void SysOutgoingEmailTable_OnInitialized(xFormRun sender, FormEventArgs e)
+    {
+        FormMenuButtonControl menuButton = sender.design().controlName(formControlStr(SysOutgoingEmailTable, Message_DC)) as FormMenuButtonControl;
+        if (menuButton)
+        {
+            FormButtonControl button = menuButton.addControl(FormControlType::Button, 'DuplicateMessage_DIDA') as FormButtonControl;
+
+            if (button)
+            {
+                button.text('Duplicate');
+                button.helpText('Duplicates the message leaving it in Expired state, so you can update it and Restart send.');
+                button.multiSelect(false);
+                button.needsRecord(true);
+
+                //button.registerOverrideMethod(methodStr(FormButtonControl, Clicked), methodStr(SysOutgoingEmailTableForm_DIDA_EventHandler, DuplicateMessage_DIDA_OnClicked), sender);
+                button.registerOverrideMethod(methodStr(FormButtonControl, Clicked), formMethodStr(SysOutgoingEmailTable, DuplicateMessage_DIDA_OnClicked_DIDA), sender);
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>DuplicateMessage_DIDA_OnClicked_DIDA</Name>
+				<Source><![CDATA[
+    public void DuplicateMessage_DIDA_OnClicked_DIDA(FormButtonControl _sender)
+    {
+        FormDataSource outgoingEmailDS = _sender.formRun().dataSource(1);
+
+        try
+        {
+            SysOutgoingEmailTable outgoingEmail = outgoingEmailDS.cursor();
+
+            ttsBegin;
+            SysOutgoingEmailTable outgoingEmailNew;
+
+            select forupdate outgoingEmailNew where outgoingEmailNew.RecId == outgoingEmail.RecId;
+            outgoingEmailNew.EmailItemId = EventInbox::nextEventId();
+            outgoingEmailNew.Status = SysEmailStatus::Expired;
+            outgoingEmailNew.insert();
+
+            SysOutgoingEmailData outgoingEmailDataOld, outgoingEmailDataNew;
+            while select outgoingEmailDataOld where outgoingEmailDataOld.EmailItemId == outgoingEmail.EmailItemId
+            {
+                buf2Buf(outgoingEmailDataOld, outgoingEmailDataNew);
+                outgoingEmailDataNew.EmailItemId = outgoingEmailNew.EmailItemId;
+                outgoingEmailDataNew.insert();
+            }
+
+            ttscommit;
+
+            outgoingEmailDS.research(false);
+            outgoingEmailDS.positionToRecord(outgoingEmailNew);
+        }
+        catch
+        {
+            DocGlobalHelper::handleException(funcName(), "Error when duplicating the email.");
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
