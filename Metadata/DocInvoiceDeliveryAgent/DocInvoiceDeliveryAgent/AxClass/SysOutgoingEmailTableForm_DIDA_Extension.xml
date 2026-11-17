@@ -3,13 +3,8 @@
 	<Name>SysOutgoingEmailTableForm_DIDA_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-using System.IO;
-using System.Net.Mail;
-using Docentric.AX.Email;
-using Docentric.AX.Framework.Utilities;
-
 /// <summary>
-/// The class SysOutgoingEmailTableForm_DC_Extension is an extension of the form SysOutgoingEmailTable.
+/// The class SysOutgoingEmailTableForm_DIDA_Extension is an extension of the form SysOutgoingEmailTable.
 /// </summary>
 [ExtensionOf(formStr(SysOutgoingEmailTable))]
 final class SysOutgoingEmailTableForm_DIDA_Extension
@@ -21,7 +16,7 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
 				<Name>SysOutgoingEmailTable_OnInitialized</Name>
 				<Source><![CDATA[
     /// <summary>
-    /// Add dynamics buttons to the form.
+    /// Add dynamic button to the form at its initialization.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -40,7 +35,6 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
                 button.multiSelect(false);
                 button.needsRecord(true);
 
-                //button.registerOverrideMethod(methodStr(FormButtonControl, Clicked), methodStr(SysOutgoingEmailTableForm_DIDA_EventHandler, DuplicateMessage_DIDA_OnClicked), sender);
                 button.registerOverrideMethod(methodStr(FormButtonControl, Clicked), formMethodStr(SysOutgoingEmailTable, DuplicateMessage_DIDA_OnClicked_DIDA), sender);
             }
         }
@@ -51,6 +45,9 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
 			<Method>
 				<Name>DuplicateMessage_DIDA_OnClicked_DIDA</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Duplicates the selected message leaving it in Expired state, so you can update it and Restart send.
+    /// </summary>
     public void DuplicateMessage_DIDA_OnClicked_DIDA(FormButtonControl _sender)
     {
         FormDataSource outgoingEmailDS = _sender.formRun().dataSource(1);
