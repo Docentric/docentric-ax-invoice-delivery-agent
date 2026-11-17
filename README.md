@@ -30,13 +30,11 @@ Each release contains the source archives and the model file for import with Mod
 ## Articles
 
 You can learn more about the solution here:
-- [Exploring AI-Powered Invoice Troubleshooting in D365FO with Docentric and Business Skills](https://ax.docentric.com/exploring-ai-powered-invoice-troubleshooting-in-d365fo-with-docentric-and-business-skills)
+- [Docentric Invoice Delivery Agent](https://ax.docentric.com/exploring-ai-powered-invoice-troubleshooting-in-d365fo-with-docentric-and-business-skills)
 
 ## Prerequisites
 
-[Docentric AX Free Edition](https://ax.docentric.com/download/) v3.6.0 or later is required.
-
-## TBD
+[Docentric AX Free Edition](https://ax.docentric.com/free-edition/) v3.6.0 or later is required.
 
 ## Instructions
 
