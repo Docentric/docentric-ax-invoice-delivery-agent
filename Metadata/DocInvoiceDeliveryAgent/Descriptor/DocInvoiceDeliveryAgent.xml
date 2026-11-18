@@ -2,7 +2,7 @@
 <AxModelInfo xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 	<AppliedUpdates xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 	<Customization>Allow</Customization>
-	<Description>Set of tools and skills to helps troubleshoot invoice delivery challanges with agents.</Description>
+	<Description>Set of tools and skills to help troubleshoot invoice delivery challenges with agents.</Description>
 	<DisplayName>Docentric AX Invoice Delivery Agent</DisplayName>
 	<Id>896000912</Id>
 	<InternalsVisibleTo xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
