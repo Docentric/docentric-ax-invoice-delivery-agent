@@ -69,6 +69,14 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
 
             outgoingEmailNew.EmailItemId = EventInbox::nextEventId();
             outgoingEmailNew.Status = SysEmailStatus::Expired;
+            outgoingEmailNew.RetryNum = 0;
+            outgoingEmailNew.LastErrorMessage = '';
+            outgoingEmailNew.ProcessorID = emptyGuid();
+            outgoingEmailNew.SessionId = 0;
+            outgoingEmailNew.SessionLoginDateTime = DateTimeUtil::minValue();
+            outgoingEmailNew.NextRetryDateTime = DateTimeUtil::minValue();
+            outgoingEmailNew.LatestStatusChangeDateTime = DateTimeUtil::getSystemDateTime();
+            outgoingEmailNew.UserId = curUserId();
             outgoingEmailNew.insert();
 
             SysOutgoingEmailData outgoingEmailDataOld, outgoingEmailDataNew;
