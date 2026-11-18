@@ -72,6 +72,7 @@ Business Skill (`SKILL.md`):
 ## Commits and Pull Requests
 
 - Commit message: `#<issue> <Imperative summary>` (capitalized, no trailing period, about 72 characters or less). Use `#noissue` when there is no issue. Add a body only when the reason is not obvious.
+- End the commit message of AI-assisted commits with the trailer `Co-authored-by: Copilot` on its own line, after a blank line. Do not add an email address or other co-author trailers.
 - One logical change per commit.
 - PR targets `main`, title like the commit, body from `.github/pull_request_template.md` with every section filled in.
 - Update `README.md` and `SKILL.md` when behavior changes.
