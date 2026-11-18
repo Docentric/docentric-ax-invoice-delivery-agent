@@ -7,10 +7,10 @@
 
     When using source control repositories such as GIT you have only one source location. 
     D365FO requires separate location for Modules (Metadata) and Projects connecting the source files 
-    together in a structured and organized way. The script creates symbolic links for all 
-    the D365FO modules registered in Metadata folder.
+    together in a structured and organized way. The script removes the symbolic links for all 
+    the D365FO modules registered in Metadata folder from AOSService\PackagesLocalDirectory.
 		
-	Existing AOS Modules are skipped.
+	Items that are not symbolic links are not deleted.
 
 	*** NOTE: Please run the script as administrator
 	
@@ -79,6 +79,10 @@ foreach ($ModelFolder in $RepoModelFolders)
     ## The full destination path
     $AOSModulePath = [System.IO.Path]::Combine($AOSMetadataPath, $ModelFolder)
     if (Test-Path $AOSModulePath) {
+        if ((Get-Item "$AOSModulePath").LinkType -ne 'SymbolicLink') {
+            Write-Host "  '$AOSModulePath' is not a symbolic link. It is not deleted." -ForegroundColor Yellow
+            continue
+        }
         try {
             (Get-Item "$AOSModulePath").Delete() | Out-Null
             Write-Host "  Removed symbolic link for model '$ModelFolder': $AOSModulePath" -ForegroundColor Green
