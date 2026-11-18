@@ -58,7 +58,13 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
             ttsBegin;
             SysOutgoingEmailTable outgoingEmailNew;
 
-            select outgoingEmailNew where outgoingEmailNew.RecId == outgoingEmail.RecId;
+            select firstonly outgoingEmailNew where outgoingEmailNew.RecId == outgoingEmail.RecId;
+
+            if (!outgoingEmailNew.RecId)
+            {
+                throw error('The selected email does not exist anymore. Refresh the form and try again.');
+            }
+
             outgoingEmailNew.EmailItemId = EventInbox::nextEventId();
             outgoingEmailNew.Status = SysEmailStatus::Expired;
             outgoingEmailNew.insert();
