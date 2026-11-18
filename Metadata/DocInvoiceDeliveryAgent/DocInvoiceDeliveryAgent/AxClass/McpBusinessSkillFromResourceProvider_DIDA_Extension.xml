@@ -4,9 +4,13 @@
 	<SourceCode>
 		<Declaration><![CDATA[
 /// <summary>
-/// Extends <c>McpBusinessSkillFromResourceProvider</c> to register all built-in Docentric Invoice Delivery Agents skill resources.
+/// Extends <c>McpBusinessSkillFromResourceProvider</c> to register all built-in Docentric Invoice Delivery Agent skill resources.
 /// This ensures related skills are automatically synced via <c>McpBusinessSkillSyncSetupAsync</c> on every deploy.
 /// </summary>
+/// <remarks>
+/// This provider extension class and skills in resource files are needed only if McpBusinessSkillMetadataProviderFlight flight is not enabled 
+/// and skills from skills AOT objects are not loaded.
+/// </remarks>
 [ExtensionOf(classStr(McpBusinessSkillFromResourceProvider))]
 internal final class McpBusinessSkillFromResourceProvider_DIDA_Extension
 {
@@ -17,7 +21,7 @@ internal final class McpBusinessSkillFromResourceProvider_DIDA_Extension
 				<Name>skillResourceNames</Name>
 				<Source><![CDATA[
     /// <summary>
-    /// Appends all expense management skill resources to the list of skills to be published.
+    /// Appends the invoice delivery investigation skill resource to the list of skills to be published.
     /// </summary>
     /// <returns>The updated <c>List</c> of resource names.</returns>
     public List skillResourceNames()
