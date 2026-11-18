@@ -58,7 +58,7 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
             ttsBegin;
             SysOutgoingEmailTable outgoingEmailNew;
 
-            select forupdate outgoingEmailNew where outgoingEmailNew.RecId == outgoingEmail.RecId;
+            select outgoingEmailNew where outgoingEmailNew.RecId == outgoingEmail.RecId;
             outgoingEmailNew.EmailItemId = EventInbox::nextEventId();
             outgoingEmailNew.Status = SysEmailStatus::Expired;
             outgoingEmailNew.insert();

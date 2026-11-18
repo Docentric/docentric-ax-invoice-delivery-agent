@@ -80,7 +80,7 @@ Emails with status Sent cannot be updated: the Update message button only appear
 Therefore we will duplicate the selected record, change receipient, and restart the send.
 
 1. Open SysOutgoingEmailTable filtered on the resend-list invoices (comma-separated Document ID filter).If there are more records for the Documetn ID, select the latest one (Created date and time).
-2. Once the record is selected, click on the Message > Duplicate (DuplicateMessage_DC) button. The new row is created with the same recipient, status Expired. If the duplicate row is not created, report it in Phase G and continue with the next row.
+2. Once the record is selected, click on the Message > Duplicate (DuplicateMessage_DIDA) button. The new row is created with the same recipient, status Expired. If the duplicate row is not created, report it in Phase G and continue with the next row.
 3. Update and restart duplicated row:
    b. Click UpdateMessageButton_DC (Message > Update message).
    c. Set EmailRecipient to the chosen address. Keep Cc/Bcc unchanged.
