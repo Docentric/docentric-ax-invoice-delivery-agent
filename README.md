@@ -31,7 +31,7 @@ Ask it, for example, *"Check why the invoices in this email were not sent."* The
 | Component | Description |
 |---|---|
 | Business Skill `DocInvoiceEmailInvestigationSkill` ([SKILL.md](Metadata/DocInvoiceDeliveryAgent/DocInvoiceDeliveryAgent/AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md)) | One Business Skill covering the whole workflow: investigation, recipient correction and resending, customer email update, and the customer reply. |
-| X++ extension `SysOutgoingEmailTableForm_DIDA_Extension` | Adds a **Message > Duplicate** button to the **Batch email sending status** form (`SysOutgoingEmailTable`). It copies the selected email in the *Expired* status, so the copy can be changed with **Message > Update message** and queued again with **Restart send**. Emails that were already *Sent* can't be updated directly. |
+| X++ extension `SysOutgoingEmailTableForm_DIDA_Extension` and event handler `SysOutgoingEmailTableForm_DIDA_EventHandler` | Adds a **Message > Duplicate** button to the **Batch email sending status** form (`SysOutgoingEmailTable`). It copies the selected email in the *Expired* status, so the copy can be changed with **Message > Update message** and queued again with **Restart send**. Emails that were already *Sent* can't be updated directly. |
 
 No Custom AI Tools are needed. The agent uses the existing D365FO and Docentric functionality exposed by the ERP MCP server (Data Tools and Form Tools), such as the `SalesInvoiceHeadersV4`, `FreeTextInvoiceHeaders`, `CustomerElectronicAddresses`, and `DocPrintJobHeaders` data entities and the `SysOutgoingEmailTable` form. The agent works within the user's D365FO security permissions.
 
