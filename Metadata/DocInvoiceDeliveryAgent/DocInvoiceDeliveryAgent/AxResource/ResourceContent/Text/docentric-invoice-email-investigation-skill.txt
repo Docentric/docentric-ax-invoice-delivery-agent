@@ -3,7 +3,7 @@ name: docentric-invoice-email-investigation
 description: Use this skill when a customer reports that one or more sales, free-text or project invoices were not received by email.
 metadata:
   author: Docentric
-  version: "1.2.0"
+  version: "1.0.0"
 ---
 ## Examples
 | Request | What to do |
@@ -75,22 +75,22 @@ Part 2 - Address question (user decision)
 - Do not change anything before the answer.
 - After the answer, run Phase D with no questions, then ask the Phase E question in the same turn.
 
-## Phase D - Restart and update (same turn as the answer, no questions)
-Emails with status Sent cannot be updated: the Update message button only appears when the status is Waiting, and the bulk update dialog only accepts Waiting, Failed or Expired emails. 
-Therefore we will duplicate the selected record, change receipient, and restart the send.
+## Phase C - Restart and update (same turn as the answer, no questions)
+Emails with status Sent cannot be updated: the Update message button only appears when the status is Waiting, and the bulk update dialog only accepts Waiting, Failed or Expired emails.
+Therefore we will duplicate the selected record, change recipient, and restart the send.
 
-1. Open SysOutgoingEmailTable filtered on the resend-list invoices (comma-separated Document ID filter).If there are more records for the Documetn ID, select the latest one (Created date and time).
+1. Open SysOutgoingEmailTable filtered on the resend-list invoices (comma-separated Document ID filter). If there are more records for the Document ID, select the latest one (Created date and time).
 2. Once the record is selected, click on the Message > Duplicate (DuplicateMessage_DIDA) button. The new row is created with the same recipient, status Expired. If the duplicate row is not created, report it in Phase G and continue with the next row.
 3. Update and restart duplicated row:
-   b. Click UpdateMessageButton_DC (Message > Update message).
-   c. Set EmailRecipient to the chosen address. Keep Cc/Bcc unchanged.
-   d. Click UpdateMessageButton (Update), then Yes in the confirmation.
-   e. Restart the duplicated row: select and mark ONLY the duplicated row (it is Expired and has the new recipient), then click Restart send (ResetEmailButton) on the action pane. It is a separate button, not an item under the Message menu. If the restart fails, report it in Phase G and continue with the next row.
-   f. Check the grid shows the new duplicate row and recipient in status Waiting.
+   a. Click UpdateMessageButton_DC (Message > Update message).
+   b. Set EmailRecipient to the chosen address. Keep Cc/Bcc unchanged.
+   c. Click UpdateMessageButton (Update), then Yes in the confirmation.
+   d. Restart the duplicated row: select and mark ONLY the duplicated row (it is Expired and has the new recipient), then click Restart send (ResetEmailButton) on the action pane. It is a separate button, not an item under the Message menu. If the restart fails, report it in Phase G and continue with the next row.
+   e. Check the grid shows the new duplicate row and recipient in status Waiting.
 4. If a step fails, retry it once; if it still fails, continue with the remaining rows and list the failure in Phase G. Do not stop to ask.
 5. form_close_form.
 
-## Phase E - Customer invoice email (ALWAYS ask)
+## Phase D - Customer invoice email (ALWAYS ask)
 1. Read the customer email addresses again (query in Phase A step 5).
 2. Ask with the selectable-options question tool, no text before the card. Show ONLY the customer's current address situation and the question. Do not list the invoices, the resend results or the sending status here; they belong in the Phase G report.
    Question text: "Customer <account> (<customer name>) <current situation>. Do you want to update the customer's invoice email address to <chosen address>?"
@@ -111,7 +111,7 @@ Therefore we will duplicate the selected record, change receipient, and restart 
    Read the addresses again to verify.
 4. No: change nothing.
 
-## Phase F - Reply to the customer email (ALWAYS ask, end of the process)
+## Phase E - Reply to the customer email (ALWAYS ask, end of the process)
 1. After Phase E, ask with the selectable-options question tool, no text before the card. Question text exactly: "Do you want me to create a reply to the customer's email?"
    Options:
    - "Yes, as a draft" - create the reply as a draft; do not send it.
@@ -122,7 +122,7 @@ Therefore we will duplicate the selected record, change receipient, and restart 
 3. F&O has no mail access: the host's mail tools create the draft or send the email. If this fails, quote the error in Phase G.
 4. Then give the Phase G report as the final reply of the same turn.
 
-## Phase G - Final report (final reply of the turn)
+## Phase F - Final report (final reply of the turn)
 - Table: | Invoice | Type | Old address | New address | Sending | Status |
 - What happened to the customer's email addresses (verified by re-reading).
 - Reply to the customer: draft created, sent to <address>, or not created.
