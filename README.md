@@ -19,7 +19,7 @@ The agent is built with [Microsoft Business Skills](https://learn.microsoft.com/
 
 Ask it, for example, *"Check why the invoices in this email were not sent."* The agent reads the customer's email (or an attached collection letter), identifies the invoices, and then:
 
-1. **Investigates invoice delivery problems.** It looks up sales, free-text, and project invoices and checks the outgoing email queue (**Batch email sending status**): recipients, sending statuses, and email information. When an invoice has no outgoing email record, it checks the Docentric **Print archive** for the print destination that was used. Findings are labelled *Confirmed*, *Likely*, or *Can't tell*.
+1. **Investigates invoice delivery problems.** It looks up sales, free-text, and project invoices and checks the outgoing email queue (**Batch email sending status**): recipients, sending statuses, and email information. When an invoice has no outgoing email record, it reports the invoice as *Not in queue*. Findings are labelled *Confirmed*, *Likely*, or *Can't tell*.
 2. **Corrects the recipient and resends.** The user chooses the address (the one requested in the email, the sender's address, or another one). The agent duplicates the existing email record, resets its retry, error, and processing-session fields, updates the recipient, and restarts sending. The original record stays unchanged, so the sending history is preserved.
 3. **Updates the customer's invoice email address.** With the user's approval, it adds or updates the customer's email address with the *Invoice* purpose, so future invoices go to the right address.
 4. **Prepares a reply to the customer.** It can create a draft reply (or send it) summarizing which invoices were resent and to which address.
@@ -33,7 +33,7 @@ Ask it, for example, *"Check why the invoices in this email were not sent."* The
 | Business Skill `DocInvoiceEmailInvestigationSkill` ([SKILL.md](Metadata/DocInvoiceDeliveryAgent/DocInvoiceDeliveryAgent/AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md)) | One Business Skill covering the whole workflow: investigation, recipient correction and resending, customer email update, and the customer reply. |
 | X++ extension `SysOutgoingEmailTableForm_DIDA_Extension` and event handler `SysOutgoingEmailTableForm_DIDA_EventHandler` | Adds a **Message > Duplicate** button to the **Batch email sending status** form (`SysOutgoingEmailTable`). It copies the selected email in the *Expired* status with retry, error, and processing-session fields reset, so the copy can be changed with **Message > Update message** and queued again with **Restart send**. Emails that were already *Sent* can't be updated directly. |
 
-No Custom AI Tools are needed. The agent uses the existing D365FO and Docentric functionality exposed by the ERP MCP server (Data Tools and Form Tools), such as the `SalesInvoiceHeadersV4`, `FreeTextInvoiceHeaders`, `CustomerElectronicAddresses`, and `DocPrintJobHeaders` data entities and the `SysOutgoingEmailTable` form. The agent works within the user's D365FO security permissions.
+No Custom AI Tools are needed. The agent uses the existing D365FO and Docentric functionality exposed by the ERP MCP server (Data Tools and Form Tools), such as the `SalesInvoiceHeadersV4`, `FreeTextInvoiceHeaders`, and `CustomerElectronicAddresses` data entities and the `SysOutgoingEmailTable` form. The agent works within the user's D365FO security permissions.
 
 ## Docentric AX
 

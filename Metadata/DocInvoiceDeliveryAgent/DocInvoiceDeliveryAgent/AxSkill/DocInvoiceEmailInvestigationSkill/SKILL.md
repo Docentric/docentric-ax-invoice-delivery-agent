@@ -45,7 +45,7 @@ metadata:
     - Status Waiting (n): n = number of failed attempts. Waiting (0) = never attempted.
 4. Read the customer email addresses:
    SELECT a.ElectronicAddressId, a.Purpose, a.Locator, a.IsPrimary FROM CustomerElectronicAddresses a WHERE a.CustomerAccount = '<account>' AND a.Type = 'Email'
-5. Resend list = invoices that have a queue row. If it is empty, report the findings (archive results, Not found) and stop.
+5. Resend list = invoices that have a queue row. If it is empty, report the findings (Not found, Not in queue) and stop.
 
 ## Phase B - Investigation results, then address choice (TURN 1, two separate parts)
 Show what was found and what the user must decide as TWO separate parts, in this order. Never combine them in one block, never put the findings inside the question text, and never ask the user to reply OK.
@@ -57,7 +57,7 @@ Part 1 - Investigation results (display only, no question)
   - TextBlock "Investigation results" (size Large, weight Bolder).
   - FactSet: Company = <company>; Customer = <account> (<customer name>); Customer email addresses = <address (purpose)>, ... or "None on file"; Address requested in the email = <requested address> or "None"; Email sender = <sender address>.
   - Table with firstRowAsHeaders true and columns [{"width":15},{"width":13},{"width":14},{"width":22},{"width":11},{"width":25}]. Header row: Invoice | Type | Queued | Sent to | Status | Finding. One TableRow per invoice, in the order of the email; each TableCell holds one TextBlock.
-  - Finding = short reason labelled Confirmed/Likely/Can't tell, or "Reason not available"; add "differs from the requested address" when Sent to is not <requested address>. Use "Not found" for missing values; for archive-only invoices put the print destination in Sent to and "Not in queue" in Status.
+  - Finding = short reason labelled Confirmed/Likely/Can't tell, or "Reason not available"; add "differs from the requested address" when Sent to is not <requested address>. Use "Not found" for missing values; for invoices without a queue row put "Not found" in Queued and Sent to and "Not in queue" in Status.
   - Every TextBlock has wrap true. No Input elements and no actions.
 - Do not repeat the card's content as text later in the turn.
 - If render_ui fails, fix the named errors and retry once. If it still fails, end the turn with a markdown section headed "Investigation results" (the same facts and table), followed by a separate line "Which address should I use to resend these invoices?" and the options below as a numbered list; continue with Phase C when the user answers.
@@ -71,9 +71,9 @@ Part 2 - Address question (user decision)
 - Do not change anything before the answer.
 - After the answer, run Phase C with no questions, then ask the Phase D question in the same turn.
 
-## Phase C - Restart and update (same turn as the answer, no questions)
+## Phase C - Duplicate, update and restart (same turn as the answer, no questions)
 Emails with status Sent cannot be updated: the Update message button only appears when the status is Waiting, and the bulk update dialog only accepts Waiting, Failed or Expired emails.
-Therefore we will duplicate the selected record, change recipient, and restart the send.
+Therefore duplicate the selected record, change the recipient on the duplicate, and restart sending the duplicate.
 
 1. Open SysOutgoingEmailTable filtered on the resend-list invoices (comma-separated Document ID filter). If there are more records for the Document ID, select the latest one (Created date and time).
 2. Once the record is selected, click on the Message > Duplicate (DuplicateMessage_DIDA) button. The new row is created with the same recipient, status Expired. If the duplicate row is not created, report it in Phase F and continue with the next row.
