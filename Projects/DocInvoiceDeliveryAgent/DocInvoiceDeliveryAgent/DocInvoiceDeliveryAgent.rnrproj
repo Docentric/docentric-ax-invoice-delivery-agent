@@ -12,7 +12,7 @@
     <RunAppCheckerRules>False</RunAppCheckerRules>
     <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
     <DeployOnline>True</DeployOnline>
-    <ProjectGuid>{257ca7ed-7e91-4e51-ac80-c995fc84cd3d}</ProjectGuid>
+    <ProjectGuid>{d4936848-94e4-582f-6e8c-7504370eee24}</ProjectGuid>
     <Name>DocInvoiceDeliveryAgent</Name>
     <RootNamespace>DocInvoiceDeliveryAgent</RootNamespace>
     <StartupType>Class</StartupType>
@@ -36,7 +36,7 @@
     <Content Include="AxClass\McpBusinessSkillFromResourceProvider_DIDA_Extension">
       <SubType>Content</SubType>
       <Name>McpBusinessSkillFromResourceProvider_DIDA_Extension</Name>
-      <Link>McpBusinessSkillFromResourceProvider_DIDA_Extension</Link>
+      <Link>Skills\McpBusinessSkillFromResourceProvider_DIDA_Extension</Link>
     </Content>
     <Content Include="AxClass\SysOutgoingEmailTableForm_DIDA_Extension">
       <SubType>Content</SubType>
@@ -46,12 +46,12 @@
     <Content Include="AxResource\DocInvoiceEmailInvestigationSkill">
       <SubType>Content</SubType>
       <Name>DocInvoiceEmailInvestigationSkill</Name>
-      <Link>DocInvoiceEmailInvestigationSkill</Link>
+      <Link>Skills\DocInvoiceEmailInvestigationSkill</Link>
     </Content>
     <Content Include="AxSkill\DocInvoiceEmailInvestigationSkill">
       <SubType>Content</SubType>
       <Name>DocInvoiceEmailInvestigationSkill</Name>
-      <Link>DocInvoiceEmailInvestigationSkill</Link>
+      <Link>Skills\DocInvoiceEmailInvestigationSkill</Link>
     </Content>
     <Content Include="docentric-invoice-email-investigation-skill.txt">
       <SubType>Content</SubType>
