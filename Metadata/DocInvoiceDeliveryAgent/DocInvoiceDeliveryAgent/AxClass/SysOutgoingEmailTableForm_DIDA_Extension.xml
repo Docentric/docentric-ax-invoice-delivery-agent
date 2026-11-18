@@ -18,8 +18,6 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
     /// <summary>
     /// Add dynamic button to the form at its initialization.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     [FormEventHandler(formStr(SysOutgoingEmailTable), FormEventType::Initialized)]
     public static void SysOutgoingEmailTable_OnInitialized(xFormRun sender, FormEventArgs e)
     {
@@ -34,6 +32,7 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
                 button.helpText('Duplicates the message leaving it in Expired state, so you can update it and Restart send.');
                 button.multiSelect(false);
                 button.needsRecord(true);
+                button.neededPermission(NeededPermission::Create);
 
                 button.registerOverrideMethod(methodStr(FormButtonControl, Clicked), formMethodStr(SysOutgoingEmailTable, DuplicateMessage_DIDA_OnClicked_DIDA), sender);
             }
@@ -50,7 +49,7 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
     /// </summary>
     public void DuplicateMessage_DIDA_OnClicked_DIDA(FormButtonControl _sender)
     {
-        FormDataSource outgoingEmailDS = _sender.formRun().dataSource(1);
+        FormDataSource outgoingEmailDS = _sender.formRun().dataSource(formDataSourceStr(SysOutgoingEmailTable, OutgoingEmail));
 
         try
         {
@@ -79,7 +78,7 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
         }
         catch
         {
-            DocGlobalHelper::handleException(funcName(), "Error when duplicating the email.");
+            DocGlobalHelper::handleException(funcName(), 'Error when duplicating the email.');
         }
     }
 
