@@ -43,6 +43,11 @@
       <Name>SysOutgoingEmailTableForm_DIDA_Extension</Name>
       <Link>DuplicateMessage\SysOutgoingEmailTableForm_DIDA_Extension</Link>
     </Content>
+    <Content Include="AxClass\SysOutgoingEmailTableForm_DIDA_EventHandler">
+      <SubType>Content</SubType>
+      <Name>SysOutgoingEmailTableForm_DIDA_EventHandler</Name>
+      <Link>DuplicateMessage\SysOutgoingEmailTableForm_DIDA_EventHandler</Link>
+    </Content>
     <Content Include="AxResource\DocInvoiceEmailInvestigationSkill">
       <SubType>Content</SubType>
       <Name>DocInvoiceEmailInvestigationSkill</Name>

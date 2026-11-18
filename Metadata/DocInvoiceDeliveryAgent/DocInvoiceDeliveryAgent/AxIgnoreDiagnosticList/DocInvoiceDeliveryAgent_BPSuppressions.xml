@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IgnoreDiagnostics>
+  <Name>DocInvoiceDeliveryAgent_BPSuppressions</Name>
+  <Items>
+    <Diagnostic>
+      <DiagnosticType>BestPractices</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/SysOutgoingEmailTableForm_DIDA_Extension/Method/DuplicateMessage_DIDA_OnClicked_DIDA</Path>
+      <ElementType>AxClass</ElementType>
+      <Moniker>BPXmlDocParameterNotDescribed</Moniker>
+      <Message>BPXmlDocParameterNotDescribed: Parameter '_sender' is not described in any 'param' tag.</Message>
+      <Justification>Standard parameter of the Clicked override method that is registered with registerOverrideMethod (the clicked button). The summary describes the method. Approved by the maintainer in issue #6.</Justification>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>CodeAnalysis</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/SysOutgoingEmailTableForm_DIDA_Extension/Method/DuplicateMessage_DIDA_OnClicked_DIDA</Path>
+      <ElementType>AxClass</ElementType>
+      <Moniker>BPCheckInsertMethodInLoop</Moniker>
+      <Message>Insert method can be replaced with RecordInsertList in method DuplicateMessage_DIDA_OnClicked_DIDA</Message>
+      <Justification>The loop copies the attachment rows of one email in the same transaction as the email header. One email has few attachment rows, so RecordInsertList gives no performance benefit. Approved by the maintainer in issue #6.</Justification>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>BestPractices</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/SysOutgoingEmailTableForm_DIDA_EventHandler/Method/SysOutgoingEmailTable_OnInitialized</Path>
+      <ElementType>AxClass</ElementType>
+      <Moniker>BPParameterNotUsed</Moniker>
+      <Message>The parameter '_e' is not used.</Message>
+      <Justification>The FormEventHandler signature requires the parameter '_e' (FormEventArgs). The handler does not need the event arguments. Approved by the maintainer in issue #6.</Justification>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>BestPractices</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/SysOutgoingEmailTableForm_DIDA_EventHandler/Method/SysOutgoingEmailTable_OnInitialized</Path>
+      <ElementType>AxClass</ElementType>
+      <Moniker>BPUpgradeCodeLateBoundCall</Moniker>
+      <Message>A late bound call formRun.SysOutgoingEmailTable_OnInitialized_DIDA is made. In source system (AX 2012) it is possible to dynamically call methods where the number and type of the parameters does not match with the method definition. This is not supported in AX 7, where the number and types of parameters have to match. Even if the parameters do match, the late bound call is extremely expensive. Mitigation: Use a class or interface hierarchy to provide a type safe fast call, or use the IS and AS operators to cast to a known type before calling.</Message>
+      <Justification>The handler calls the method of the form augmentation class SysOutgoingEmailTableForm_DIDA_Extension on the FormRun. X++ cannot declare a variable of a form type, so a typed call is not possible. The method has no parameters. Approved by the maintainer in issue #6.</Justification>
+    </Diagnostic>
+  </Items>
+</IgnoreDiagnostics>

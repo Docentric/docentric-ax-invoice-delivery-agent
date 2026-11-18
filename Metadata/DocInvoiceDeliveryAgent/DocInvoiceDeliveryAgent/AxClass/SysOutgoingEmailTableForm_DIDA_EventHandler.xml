@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SysOutgoingEmailTableForm_DIDA_EventHandler</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// The class SysOutgoingEmailTableForm_DIDA_EventHandler contains event handlers for the form SysOutgoingEmailTable.
+/// </summary>
+public class SysOutgoingEmailTableForm_DIDA_EventHandler
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>SysOutgoingEmailTable_OnInitialized</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Form initialized event handler. Adds the Duplicate button to the form.
+    /// </summary>
+    /// <param name = "_sender">The form that is initialized.</param>
+    /// <param name = "_e">The event arguments.</param>
+    [FormEventHandler(formStr(SysOutgoingEmailTable), FormEventType::Initialized)]
+    public static void SysOutgoingEmailTable_OnInitialized(xFormRun _sender, FormEventArgs _e)
+    {
+        FormRun formRun = _sender as FormRun;
+        formRun.SysOutgoingEmailTable_OnInitialized_DIDA();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

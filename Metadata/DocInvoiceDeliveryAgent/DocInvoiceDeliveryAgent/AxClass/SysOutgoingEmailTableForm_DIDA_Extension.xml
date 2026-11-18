@@ -18,10 +18,12 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
     /// <summary>
     /// Add dynamic button to the form at its initialization.
     /// </summary>
-    [FormEventHandler(formStr(SysOutgoingEmailTable), FormEventType::Initialized)]
-    public static void SysOutgoingEmailTable_OnInitialized_DIDA(xFormRun sender, FormEventArgs e)
+    /// <remarks>
+    /// Called by the event handler <c>SysOutgoingEmailTableForm_DIDA_EventHandler.SysOutgoingEmailTable_OnInitialized</c>.
+    /// </remarks>
+    public void SysOutgoingEmailTable_OnInitialized_DIDA()
     {
-        FormMenuButtonControl menuButton = sender.design().controlName(formControlStr(SysOutgoingEmailTable, Message_DC)) as FormMenuButtonControl;
+        FormMenuButtonControl menuButton = this.design().controlName(formControlStr(SysOutgoingEmailTable, Message_DC)) as FormMenuButtonControl;
         if (menuButton)
         {
             FormButtonControl button = menuButton.addControl(FormControlType::Button, 'DuplicateMessage_DIDA') as FormButtonControl;
@@ -34,7 +36,7 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
                 button.needsRecord(true);
                 button.neededPermission(NeededPermission::Create);
 
-                button.registerOverrideMethod(methodStr(FormButtonControl, Clicked), formMethodStr(SysOutgoingEmailTable, DuplicateMessage_DIDA_OnClicked_DIDA), sender);
+                button.registerOverrideMethod(methodStr(FormButtonControl, Clicked), formMethodStr(SysOutgoingEmailTable, DuplicateMessage_DIDA_OnClicked_DIDA), this);
             }
         }
     }
