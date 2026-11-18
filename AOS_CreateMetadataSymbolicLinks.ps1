@@ -88,7 +88,7 @@ foreach ($ModelFolder in $RepoModelFolders)
 	if ($ModelsToInstall.Length -gt 0)
 	{
 		$skipModel = $true
-		if ($ModelsToInstall -contains $ModelFolder)
+		if ($ModelsToInstall -contains $ModelFolder.Name)
 		{
 			$skipModel = $false
 		}
@@ -96,15 +96,16 @@ foreach ($ModelFolder in $RepoModelFolders)
 
 	if ($skipModel -eq $false)
 	{
-		$Target = "$RepoMetadataPath\$ModelFolder"
+		$ModelName = $ModelFolder.Name
+		$Target = "$RepoMetadataPath\$ModelName"
 		## The full destination path
-		$AOSModulePath = [System.IO.Path]::Combine($AOSMetadataPath, $ModelFolder)
+		$AOSModulePath = [System.IO.Path]::Combine($AOSMetadataPath, $ModelName)
 		if (!(Test-Path $AOSModulePath))
 		{
-			New-Item -ItemType SymbolicLink -Path "$AOSMetadataPath" -Name "$ModelFolder" -Value "$Target" -ErrorAction Stop | Out-Null
-			Write-Host "  Created symbolic link for model '$ModelFolder': $AOSModulePath" -ForegroundColor Green
+			New-Item -ItemType SymbolicLink -Path "$AOSMetadataPath" -Name "$ModelName" -Value "$Target" -ErrorAction Stop | Out-Null
+			Write-Host "  Created symbolic link for model '$ModelName': $AOSModulePath" -ForegroundColor Green
 		} else {
-			Write-Host "  Model folder '$ModelFolder' already exists in AOS 'PackagesLocalDirectory' folder. Action is skipped." -ForegroundColor Yellow
+			Write-Host "  Model folder '$ModelName' already exists in AOS 'PackagesLocalDirectory' folder. Action is skipped." -ForegroundColor Yellow
 		}
 	}
 }
