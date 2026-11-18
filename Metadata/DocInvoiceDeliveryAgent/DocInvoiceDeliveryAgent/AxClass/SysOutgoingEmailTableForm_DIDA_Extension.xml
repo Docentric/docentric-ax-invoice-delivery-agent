@@ -49,6 +49,7 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
     /// <summary>
     /// Duplicates the selected message leaving it in Expired state, so you can update it and Restart send.
     /// </summary>
+    /// <param name = "_sender">The Duplicate button that the user clicked.</param>
     public void DuplicateMessage_DIDA_OnClicked_DIDA(FormButtonControl _sender)
     {
         FormDataSource outgoingEmailDS = _sender.formRun().dataSource(formDataSourceStr(SysOutgoingEmailTable, OutgoingEmail));
