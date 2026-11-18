@@ -9,7 +9,7 @@ D365FO X++ model that adds a Business Skill and a small form extension for the D
 | Path | Description |
 |------|-------------|
 | `Metadata/DocInvoiceDeliveryAgent` | Package and model `DocInvoiceDeliveryAgent` ("Docentric AX Invoice Delivery Agent"). References `ApplicationPlatform`, `ApplicationFoundation`, `DocentricAX`. |
-| `Metadata/.../AxSkill/DocAgentEmailInvestigationSkill/SKILL.md` | Business Skill for the D365FO agent. This is product content, not an instruction for coding agents. |
+| `Metadata/.../AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md` | Business Skill for the D365FO agent. This is product content, not an instruction for coding agents. |
 | `Projects/DocInvoiceDeliveryAgent` | Visual Studio solution (`.slnx`) and D365FO project (`.rnrproj`). |
 | `AOS_*MetadataSymbolicLinks.ps1` | Link the model into PackagesLocalDirectory (see README). |
 | `.claude/skills/` | Development workflow skills, used by Copilot and Claude Code. |

@@ -30,7 +30,7 @@ Ask it, for example, *"Check why the invoices in this email were not sent."* The
 
 | Component | Description |
 |---|---|
-| Business Skill `DocAgentEmailInvestigationSkill` ([SKILL.md](Metadata/DocInvoiceDeliveryAgent/DocInvoiceDeliveryAgent/AxSkill/DocAgentEmailInvestigationSkill/SKILL.md)) | One Business Skill covering the whole workflow: investigation, recipient correction and resending, customer email update, and the customer reply. |
+| Business Skill `DocInvoiceEmailInvestigationSkill` ([SKILL.md](Metadata/DocInvoiceDeliveryAgent/DocInvoiceDeliveryAgent/AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md)) | One Business Skill covering the whole workflow: investigation, recipient correction and resending, customer email update, and the customer reply. |
 | X++ extension `SysOutgoingEmailTableForm_DIDA_Extension` | Adds a **Message > Duplicate** button to the **Batch email sending status** form (`SysOutgoingEmailTable`). It copies the selected email in the *Expired* status, so the copy can be changed with **Message > Update message** and queued again with **Restart send**. Emails that were already *Sent* can't be updated directly. |
 
 No Custom AI Tools are needed. The agent uses the existing D365FO and Docentric functionality exposed by the ERP MCP server (Data Tools and Form Tools), such as the `SalesInvoiceHeadersV4`, `FreeTextInvoiceHeaders`, `CustomerElectronicAddresses`, and `DocPrintJobHeaders` data entities and the `SysOutgoingEmailTable` form. The agent works within the user's D365FO security permissions.
@@ -65,7 +65,7 @@ Related articles:
 
 ## Using the Business Skill
 
-The skill is included in the model as an AOT artifact (`AxSkill`), so it's deployed together with the model. If your environment doesn't support built-in (AOT) skills yet, create a custom skill in **System administration > Setup > Business skills** and upload [SKILL.md](Metadata/DocInvoiceDeliveryAgent/DocInvoiceDeliveryAgent/AxSkill/DocAgentEmailInvestigationSkill/SKILL.md).
+The skill is included in the model as an AOT artifact (`AxSkill`), so it's deployed together with the model. If your environment doesn't support built-in (AOT) skills yet, create a custom skill in **System administration > Setup > Business skills** and upload [SKILL.md](Metadata/DocInvoiceDeliveryAgent/DocInvoiceDeliveryAgent/AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md).
 
 The **Message > Duplicate** button comes from the X++ extension in this model, so the model must be deployed to the environment either way.
 
