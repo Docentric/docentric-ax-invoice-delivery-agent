@@ -13,13 +13,13 @@ final class SysOutgoingEmailTableForm_DIDA_Extension
 ]]></Declaration>
 		<Methods>
 			<Method>
-				<Name>SysOutgoingEmailTable_OnInitialized</Name>
+				<Name>SysOutgoingEmailTable_OnInitialized_DIDA</Name>
 				<Source><![CDATA[
     /// <summary>
     /// Add dynamic button to the form at its initialization.
     /// </summary>
     [FormEventHandler(formStr(SysOutgoingEmailTable), FormEventType::Initialized)]
-    public static void SysOutgoingEmailTable_OnInitialized(xFormRun sender, FormEventArgs e)
+    public static void SysOutgoingEmailTable_OnInitialized_DIDA(xFormRun sender, FormEventArgs e)
     {
         FormMenuButtonControl menuButton = sender.design().controlName(formControlStr(SysOutgoingEmailTable, Message_DC)) as FormMenuButtonControl;
         if (menuButton)
