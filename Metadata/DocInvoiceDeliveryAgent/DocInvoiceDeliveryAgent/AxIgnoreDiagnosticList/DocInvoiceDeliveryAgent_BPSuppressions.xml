@@ -3,15 +3,6 @@
   <Name>DocInvoiceDeliveryAgent_BPSuppressions</Name>
   <Items>
     <Diagnostic>
-      <DiagnosticType>BestPractices</DiagnosticType>
-      <Severity>Warning</Severity>
-      <Path>dynamics://Class/SysOutgoingEmailTableForm_DIDA_Extension/Method/DuplicateMessage_DIDA_OnClicked_DIDA</Path>
-      <ElementType>AxClass</ElementType>
-      <Moniker>BPXmlDocParameterNotDescribed</Moniker>
-      <Message>BPXmlDocParameterNotDescribed: Parameter '_sender' is not described in any 'param' tag.</Message>
-      <Justification>Standard parameter of the Clicked override method that is registered with registerOverrideMethod (the clicked button). The summary describes the method. Approved by the maintainer in issue #6.</Justification>
-    </Diagnostic>
-    <Diagnostic>
       <DiagnosticType>CodeAnalysis</DiagnosticType>
       <Severity>Warning</Severity>
       <Path>dynamics://Class/SysOutgoingEmailTableForm_DIDA_Extension/Method/DuplicateMessage_DIDA_OnClicked_DIDA</Path>
