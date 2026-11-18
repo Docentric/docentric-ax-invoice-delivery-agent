@@ -43,17 +43,13 @@ metadata:
     - Filter on Document ID, never on Email description (it holds the report name, e.g. Show invoice).
     - Several rows for one invoice: use the latest Created date and time. A later Sent row overrides an earlier Failed one.
     - Status Waiting (n): n = number of failed attempts. Waiting (0) = never attempted.
-4. Only for invoices with NO queue row, check the print archive in ONE query:
-   SELECT p.DocumentId, p.AccountNum, p.PrintDestination, p.PrintDestinationInfo, p.JournalType, p.CreatedDateTime1 FROM DocPrintJobHeaders p WHERE p.DocumentId IN (...) AND p.AccountNum = '<account>' ORDER BY p.CreatedDateTime1 DESC
-    - Use the latest row. PrintDestination: Email, Printer, Screen, File, Archive. PrintDestinationInfo shows the real To address.
-    - Destination not Email: the email was not sent because the print destination is not Email. Archive row with Email does not prove delivery.
-5. Read the customer email addresses:
+4. Read the customer email addresses:
    SELECT a.ElectronicAddressId, a.Purpose, a.Locator, a.IsPrimary FROM CustomerElectronicAddresses a WHERE a.CustomerAccount = '<account>' AND a.Type = 'Email'
-6. Resend list = invoices that have a queue row. If it is empty, report the findings (archive results, Not found) and stop.
+5. Resend list = invoices that have a queue row. If it is empty, report the findings (archive results, Not found) and stop.
 
 ## Phase B - Investigation results, then address choice (TURN 1, two separate parts)
 Show what was found and what the user must decide as TWO separate parts, in this order. Never combine them in one block, never put the findings inside the question text, and never ask the user to reply OK.
-- If the resend list is empty, do not ask: report the findings as the final reply and stop (Phase A step 6).
+- If the resend list is empty, do not ask: report the findings as the final reply and stop (Phase A step 5).
 - If the user already named an address or option in the request, show Part 1, skip Part 2 and continue with Phase C in the same turn.
 
 Part 1 - Investigation results (display only, no question)
@@ -91,7 +87,7 @@ Therefore we will duplicate the selected record, change recipient, and restart t
 5. form_close_form.
 
 ## Phase D - Customer invoice email (ALWAYS ask)
-1. Read the customer email addresses again (query in Phase A step 5).
+1. Read the customer email addresses again (query in Phase A step 4).
 2. Ask with the selectable-options question tool, no text before the card. Show ONLY the customer's current address situation and the question. Do not list the invoices, the resend results or the sending status here; they belong in the Phase F report.
    Question text: "Customer <account> (<customer name>) <current situation>. Do you want to update the customer's invoice email address to <chosen address>?"
    <current situation> is one of:
