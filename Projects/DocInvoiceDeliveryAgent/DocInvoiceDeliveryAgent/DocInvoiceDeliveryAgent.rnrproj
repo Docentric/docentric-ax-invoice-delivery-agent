@@ -9,7 +9,7 @@
     <OutputPath>bin</OutputPath>
     <SchemaVersion>2.0</SchemaVersion>
     <GenerateCrossReferences>True</GenerateCrossReferences>
-    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <RunAppCheckerRules>True</RunAppCheckerRules>
     <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
     <DeployOnline>True</DeployOnline>
     <ProjectGuid>{d4936848-94e4-582f-6e8c-7504370eee24}</ProjectGuid>
