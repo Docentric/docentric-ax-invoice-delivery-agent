@@ -30,7 +30,7 @@ Ask it, for example, *"Check why the invoices in this email were not sent."* The
 
 | Component | Description |
 |---|---|
-| Business Skill `DocInvoiceEmailInvestigationSkill` ([SKILL.md](Metadata/DocentricInvoiceDeliveryAgent/DocentricInvoiceDeliveryAgent/AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md)) | One Business Skill covering the whole workflow: investigation, recipient correction and resending, customer email update, and the customer reply. |
+| Business Skill `DocInvoiceEmailInvestigationSkill` ([SKILL.md](Metadata/DocentricAXInvoiceDeliveryAgent/DocentricAXInvoiceDeliveryAgent/AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md)) | One Business Skill covering the whole workflow: investigation, recipient correction and resending, customer email update, and the customer reply. |
 | X++ extension `SysOutgoingEmailTableForm_DIDA_Extension` and event handler `SysOutgoingEmailTableForm_DIDA_EventHandler` | Adds a **Message > Duplicate** button to the **Batch email sending status** form (`SysOutgoingEmailTable`). It copies the selected email in the *Expired* status with retry, error, and processing-session fields reset, so the copy can be changed with **Message > Update message** and queued again with **Restart send**. Emails that were already *Sent* can't be updated directly. |
 
 No Custom AI Tools are needed. The agent uses the existing D365FO and Docentric functionality exposed by the ERP MCP server (Data Tools and Form Tools), such as the `SalesInvoiceHeadersV4`, `FreeTextInvoiceHeaders`, and `CustomerElectronicAddresses` data entities and the `SysOutgoingEmailTable` form. The agent works within the user's D365FO security permissions.
@@ -65,7 +65,7 @@ Related articles:
 
 ## Using the Business skill
 
-The skill is included in the model as an AOT artifact (`AxSkill`), so it's deployed together with the model. If your environment doesn't support built-in (AOT) skills yet, create a custom skill in **System administration > Setup > Business skills** and upload [SKILL.md](Metadata/DocentricInvoiceDeliveryAgent/DocentricInvoiceDeliveryAgent/AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md).
+The skill is included in the model as an AOT artifact (`AxSkill`), so it's deployed together with the model. If your environment doesn't support built-in (AOT) skills yet, create a custom skill in **System administration > Setup > Business skills** and upload [SKILL.md](Metadata/DocentricAXInvoiceDeliveryAgent/DocentricAXInvoiceDeliveryAgent/AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md).
 
 The **Message > Duplicate** button comes from the X++ extension in this model, so the model must be deployed to the environment either way.
 
@@ -113,13 +113,13 @@ Use these scripts on the D365FO development environment (with **:\AOSService\Pac
 
 `.\_Scripts\AOS_BuildModel.ps1`
 
-2. **Export the model file.** The script exports the model source to `artifacts\Model\DocentricInvoiceDeliveryAgent-<version>.axmodel`. Import it on another development environment with `ModelUtil.exe -import`.
+2. **Export the model file.** The script exports the model source to `artifacts\Model\DocentricAXInvoiceDeliveryAgent-<version>.axmodel`. Import it on another development environment with `ModelUtil.exe -import`.
 
 `.\_Scripts\AOS_ExportModel.ps1`
 
 3. **Create the deployable packages.** Build the model first. Run the script in Windows PowerShell 5.1. Use `-Target LCS` or `-Target UDE` to create only one package (default: `All`).
-   - LCS: `artifacts\DeployablePackage\LCS\DocentricInvoiceDeliveryAgent-<version>.zip`. Upload it to the LCS Asset library, or apply it to a cloud-hosted environment.
-   - UDE: `artifacts\DeployablePackage\UDE\DocentricInvoiceDeliveryAgent-<version>\`. A unified package, converted from the LCS package with `ModelUtil.exe -convertToUnifiedPackage`. Deploy it to a Power Platform environment with `pac package deploy --package <folder>\TemplatePackage.dll`.
+   - LCS: `artifacts\DeployablePackage\LCS\DocentricAXInvoiceDeliveryAgent-<version>.zip`. Upload it to the LCS Asset library, or apply it to a cloud-hosted environment.
+   - UDE: `artifacts\DeployablePackage\UDE\DocentricAXInvoiceDeliveryAgent-<version>\`. A unified package, converted from the LCS package with `ModelUtil.exe -convertToUnifiedPackage`. Deploy it to a Power Platform environment with `pac package deploy --package <folder>\TemplatePackage.dll`.
 
 `.\_Scripts\AOS_ExportDeployablePackage.ps1`
 
@@ -129,7 +129,7 @@ All scripts accept `-PackagesLocalFolder` for a custom PackagesLocalDirectory pa
 
 The repository starts with the following folder structure:
 
-- `Metadata`: *Folder containing the D365FO model (`DocentricInvoiceDeliveryAgent`, model name `Docentric AX Invoice Delivery Agent POC`)*
+- `Metadata`: *Folder containing the D365FO model (`DocentricAXInvoiceDeliveryAgent`, model name `Docentric AX Invoice Delivery Agent POC`)*
 - `Projects`: *Folder containing Visual Studio files (e.g., solutions, projects gluing the D365FO model artifacts).*
 - `AOS_CreateMetadataSymbolicLinks.ps1`: *Script to create the symbolic links to the AosService\PackagesLocalDirectory folder.*
 - `AOS_RemoveMetadataSymbolicLinks.ps1`: *Script to remove the symbolic links from the AosService\PackagesLocalDirectory folder.*
@@ -143,7 +143,7 @@ The repository starts with the following folder structure:
 - `.gitignore`: *Defines project-based rules for ignoring files and folders in the Git repository.*
 - `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`: *Instructions for AI coding agents (GitHub Copilot, Claude Code), including the code review checklist.*
 - `.claude/skills`: *Development workflow skills for the agents: `create-branch`, `plan`, `implement`, `create-pull-request`, `code-review`.*
-- `.mcp.json`: *GitHub MCP server for Claude Code (needs the `GITHUB_PERSONAL_ACCESS_TOKEN` environment variable). Visual Studio uses `Projects/DocentricInvoiceDeliveryAgent/.mcp.json` and signs in with your GitHub account.*
+- `.mcp.json`: *GitHub MCP server for Claude Code (needs the `GITHUB_PERSONAL_ACCESS_TOKEN` environment variable). Visual Studio uses `Projects/DocentricAXInvoiceDeliveryAgent/.mcp.json` and signs in with your GitHub account.*
 
 ## License
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxSkill xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V1">
 	<Name>DocInvoiceEmailInvestigationSkill</Name>
-	<Instructions>DocentricInvoiceDeliveryAgent\DocentricInvoiceDeliveryAgent\AxSkill\DocInvoiceEmailInvestigationSkill\SKILL.md</Instructions>
+	<Instructions>DocentricAXInvoiceDeliveryAgent\DocentricAXInvoiceDeliveryAgent\AxSkill\DocInvoiceEmailInvestigationSkill\SKILL.md</Instructions>
 	<Resources />
 </AxSkill>

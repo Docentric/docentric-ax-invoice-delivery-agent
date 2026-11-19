@@ -8,7 +8,7 @@
 	<InternalsVisibleTo xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 	<Layer>0</Layer>
 	<Locked>false</Locked>
-	<ModelModule>DocentricInvoiceDeliveryAgent</ModelModule>
+	<ModelModule>DocentricAXInvoiceDeliveryAgent</ModelModule>
 	<ModelReferences xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
 		i:nil="true" />
 	<ModuleReferences xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
@@ -16,7 +16,7 @@
 		<d2p1:string>ApplicationFoundation</d2p1:string>
 		<d2p1:string>DocentricAX</d2p1:string>
 	</ModuleReferences>
-	<Name>DocentricInvoiceDeliveryAgent</Name>
+	<Name>DocentricAXInvoiceDeliveryAgent</Name>
 	<Publisher>Docentric</Publisher>
 	<SolutionId>00000000-0000-0000-0000-000000000000</SolutionId>
 	<VersionBuild>0</VersionBuild>

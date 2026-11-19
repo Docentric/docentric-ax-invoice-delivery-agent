@@ -11,5 +11,5 @@
     <File Path="../../README.md" />
     <File Path=".mcp.json" />
   </Folder>
-  <Project Path="DocentricInvoiceDeliveryAgent/DocentricInvoiceDeliveryAgent.rnrproj" Type="fc65038c-1b2f-41e1-a629-bed71d161fff" />
+  <Project Path="DocentricAXInvoiceDeliveryAgent/DocentricAXInvoiceDeliveryAgent.rnrproj" Type="fc65038c-1b2f-41e1-a629-bed71d161fff" />
 </Solution>

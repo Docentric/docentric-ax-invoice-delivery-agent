@@ -1,11 +1,11 @@
 <#
 	.SYNOPSIS
-	Exports the D365FO model DocentricInvoiceDeliveryAgent to a model file (.axmodel).
+	Exports the D365FO model DocentricAXInvoiceDeliveryAgent to a model file (.axmodel).
 
 	.DESCRIPTION
 	*** Script version: AOS_ExportModel.ps1 v1.0 ***
 
-	Exports the model source with ModelUtil.exe to 'artifacts\Model\DocentricInvoiceDeliveryAgent-<version>.axmodel'.
+	Exports the model source with ModelUtil.exe to 'artifacts\Model\DocentricAXInvoiceDeliveryAgent-<version>.axmodel'.
 	The version is read from the model descriptor (VersionMajor.VersionMinor.VersionBuild).
 	A model file contains the source code only. Import it with 'ModelUtil.exe -import' and build the model on the target environment.
 

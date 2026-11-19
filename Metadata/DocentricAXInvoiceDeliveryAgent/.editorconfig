@@ -1,6 +1,6 @@
 # EditorConfig: https://editorconfig.org
 #
-# Formatting rules for the D365FO package DocentricInvoiceDeliveryAgent (X++ source and AOT metadata).
+# Formatting rules for the D365FO package DocentricAXInvoiceDeliveryAgent (X++ source and AOT metadata).
 # This folder is linked into PackagesLocalDirectory, so root = true stops the search here.
 # The rules are then the same through the repository path and through the symbolic link.
 
