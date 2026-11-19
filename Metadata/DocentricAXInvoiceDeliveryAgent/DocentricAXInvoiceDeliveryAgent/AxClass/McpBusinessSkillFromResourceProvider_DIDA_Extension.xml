@@ -8,8 +8,8 @@
 /// This ensures related skills are automatically synced via <c>McpBusinessSkillSyncSetupAsync</c> on every deploy.
 /// </summary>
 /// <remarks>
-/// This provider extension class and skills in resource files are needed only if McpBusinessSkillMetadataProviderFlight flight is not enabled 
-/// and skills from skills AOT objects are not loaded.
+/// This provider extension class and skills in resource files are needed only if McpBusinessSkillMetadataProviderFlight flight is not enabled
+/// and skills from AOT skill objects are not loaded.
 /// The resource file <c>docentric-invoice-email-investigation-skill.txt</c> must stay identical to
 /// <c>AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md</c>.
 /// </remarks>
