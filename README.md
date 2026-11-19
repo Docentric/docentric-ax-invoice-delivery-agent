@@ -59,17 +59,28 @@ Related articles:
 ## Prerequisites
 
 - [Docentric AX Free Edition](https://ax.docentric.com/free-edition/) v3.6.0 or later.
-- A D365FO environment with Business Skills and the Dynamics 365 ERP MCP server enabled.
+- A D365FO environment with Business skills and the Dynamics 365 ERP MCP server enabled.
 - An MCP-compatible agent connected to the ERP MCP server (for example, Microsoft 365 Copilot, Copilot Studio, or Microsoft Foundry). To read customer emails and create replies, the agent also needs mail tools (for example, Outlook).
 - The **Docentric Email distributor** batch job running, so that the emails the agent queues are actually sent.
 
-## Using the Business Skill
+## Using the Business skill
 
 The skill is included in the model as an AOT artifact (`AxSkill`), so it's deployed together with the model. If your environment doesn't support built-in (AOT) skills yet, create a custom skill in **System administration > Setup > Business skills** and upload [SKILL.md](Metadata/DocentricInvoiceDeliveryAgent/DocentricInvoiceDeliveryAgent/AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md).
 
 The **Message > Duplicate** button comes from the X++ extension in this model, so the model must be deployed to the environment either way.
 
 > NOTE: Business Skills guide the agent, but they can't enforce its behavior. Approvals, permissions, and validations are enforced by D365FO security and application logic.
+
+## Business skills in AOT
+
+You can add a skill to a model as a skill object (`AxSkill`) or as a resource object (`AxResource`). Resource objects are legacy, but D365FO still supports them. This model contains both:
+
+- When the `McpBusinessSkillMetadataProviderFlight` flight is enabled, D365FO loads only skill objects: `AxSkill/DocInvoiceEmailInvestigationSkill` that contains `SKILL.md`.
+- When the flight is disabled, you need extension of `McpBusinessSkillFromResourceProvider` class to load your resources. In our case `McpBusinessSkillFromResourceProvider_DIDA_Extension` loads the resource `DocInvoiceEmailInvestigationSkill` (`docentric-invoice-email-investigation-skill.txt`).
+
+Keep the resource file identical to `SKILL.md` in skill object.
+
+> NOTE: In version 10.0.50 (preview), D365FO loads skill objects only from models in the SYS layer. Microsoft has confirmed the bug and will fix it, but as a workaroundwe we have put this model in the SYS layer.
 
 ## Instructions
 
