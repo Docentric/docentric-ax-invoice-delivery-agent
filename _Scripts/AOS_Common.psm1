@@ -3,9 +3,9 @@
 	Shared functions for the build and export scripts of the D365FO model DocentricAXInvoiceDeliveryAgent.
 
 	.DESCRIPTION
-	*** Script version: AOS_Common.psm1 v1.0 ***
+	*** Script version: AOS_Common.psm1 v1.1 ***
 
-	Used by AOS_BuildModel.ps1, AOS_ExportModel.ps1 and AOS_ExportDeployablePackage.ps1.
+	Used by AOS_BuildModel.ps1, AOS_ExportModel.ps1, AOS_ExportDeployablePackage.ps1, PPAC_DeployPackage.ps1 and PPAC_RemovePackage.ps1.
 	Do not run this module directly.
 #>
 
@@ -15,6 +15,12 @@ Set-StrictMode -Version 3.0
 $ModelModule = 'DocentricAXInvoiceDeliveryAgent'
 $RepositoryRoot = Split-Path -Path $PSScriptRoot -Parent
 $ArtifactsRoot = Join-Path $RepositoryRoot 'artifacts'
+
+## The Windows MSI installation of the Power Platform CLI. The .NET tool installation does not support 'pac package deploy'.
+$PacCliFolder = Join-Path $env:LOCALAPPDATA 'Microsoft\PowerAppsCLI'
+$PacCliMsiUrl = 'https://aka.ms/PowerAppsCLI'
+## The MSI launcher installs the CLI versions from this NuGet package.
+$PacCliVersionsUrl = 'https://api.nuget.org/v3-flatcontainer/microsoft.powerapps.cli/index.json'
 
 <#
 	.SYNOPSIS
@@ -92,7 +98,7 @@ function Get-DidaModel
 		Module       = $ModelModule
 		Name         = $ModelInfo.Name
 		Publisher    = $ModelInfo.Publisher
-		Version      = '{0}.{1}.{2}' -f $ModelInfo.VersionMajor, $ModelInfo.VersionMinor, $ModelInfo.VersionBuild
+		Version      = Get-DidaDescriptorVersion -ModelInfo $ModelInfo
 		Folder       = $ModelFolder
 		BinFolder    = Join-Path $ModelFolder 'bin'
 		SourceFolder = Join-Path $ModelFolder $ModelModule
@@ -203,12 +209,149 @@ function Get-DidaNodeText
 	return ''
 }
 
+function Get-DidaDescriptorVersion
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		[System.Xml.XmlElement]$ModelInfo
+	)
+
+	return '{0}.{1}.{2}' -f $ModelInfo.VersionMajor, $ModelInfo.VersionMinor, $ModelInfo.VersionBuild
+}
+
+<#
+	.SYNOPSIS
+	Returns the full path of the UDE unified package folder that AOS_ExportDeployablePackage.ps1 creates for the current model version.
+
+	.DESCRIPTION
+	The version is read from the model descriptor in the repository, so PackagesLocalDirectory is not necessary.
+#>
+function Get-DidaUdePackageFolder
+{
+	$DescriptorPath = Join-Path $RepositoryRoot "Metadata\$ModelModule\Descriptor\$ModelModule.xml"
+	if (!(Test-Path -Path $DescriptorPath -PathType Leaf))
+	{
+		throw "The model descriptor is missing: $DescriptorPath"
+	}
+
+	[xml]$Descriptor = Get-Content -Path $DescriptorPath -Raw
+	$Version = Get-DidaDescriptorVersion -ModelInfo $Descriptor.AxModelInfo
+	return Join-Path $ArtifactsRoot "DeployablePackage\$ModelModule-$Version-UDE"
+}
+
+<#
+	.SYNOPSIS
+	Makes sure that the latest version of the Power Platform CLI (Windows MSI) is installed, and returns the full path of its pac.exe.
+
+	.DESCRIPTION
+	Reads the latest stable version from NuGet. If the CLI is not installed, installs the Windows MSI for the current user
+	(no administrator rights necessary). If the latest version is not installed, installs it with 'pac install <version>'.
+	The returned pac.exe is called directly, because the pac launcher (pac.cmd) does not return reliable exit codes.
+	The version that 'pac use' selects for the interactive 'pac' command is not changed.
+#>
+function Install-DidaPacCli
+{
+	[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+
+	Write-Host 'Checking the latest version of the Power Platform CLI...'
+	try
+	{
+		$Versions = @((Invoke-RestMethod -Uri $PacCliVersionsUrl -UseBasicParsing -ErrorAction Stop).versions)
+	}
+	catch
+	{
+		throw "Cannot read the latest version of the Power Platform CLI from '$PacCliVersionsUrl': $($_.Exception.Message)"
+	}
+	$StableVersions = @($Versions | Where-Object { $_ -match '^\d+(\.\d+){1,3}$' } | Sort-Object -Property { [Version]$_ })
+	if ($StableVersions.Count -eq 0)
+	{
+		throw "No stable version of the Power Platform CLI was found in '$PacCliVersionsUrl'."
+	}
+	$LatestVersion = $StableVersions[-1]
+
+	$LauncherPath = Join-Path $PacCliFolder 'pac.launcher.exe'
+	if (!(Test-Path -Path $LauncherPath -PathType Leaf))
+	{
+		Write-Host 'The Power Platform CLI is not installed. Installing the Windows MSI for the current user...'
+		$MsiPath = Join-Path ([System.IO.Path]::GetTempPath()) 'powerapps-cli-1.0.msi'
+		try
+		{
+			Invoke-WebRequest -Uri $PacCliMsiUrl -OutFile $MsiPath -UseBasicParsing -ErrorAction Stop
+			$Process = Start-Process -FilePath 'msiexec.exe' -ArgumentList @('/i', "`"$MsiPath`"", '/quiet', '/norestart') -Wait -PassThru
+			## 3010: The installation succeeded and a restart is necessary.
+			if ($Process.ExitCode -ne 0 -and $Process.ExitCode -ne 3010)
+			{
+				throw "The installation of the Power Platform CLI failed with exit code $($Process.ExitCode)."
+			}
+		}
+		finally
+		{
+			Remove-Item -Path $MsiPath -Force -ErrorAction SilentlyContinue
+		}
+		if (!(Test-Path -Path $LauncherPath -PathType Leaf))
+		{
+			throw "The Power Platform CLI was not installed: $LauncherPath"
+		}
+	}
+
+	$PacPath = Join-Path $PacCliFolder "Microsoft.PowerApps.CLI.$LatestVersion\tools\pac.exe"
+	if (Test-Path -Path $PacPath -PathType Leaf)
+	{
+		Write-Host "The latest version of the Power Platform CLI ($LatestVersion) is installed."
+	}
+	else
+	{
+		Write-Host "Installing version $LatestVersion of the Power Platform CLI..."
+		## The launcher does not return a reliable exit code. The result is checked with the installation folder.
+		& $LauncherPath install $LatestVersion | ForEach-Object { Write-Host "    $_" }
+		if (!(Test-Path -Path $PacPath -PathType Leaf))
+		{
+			throw "Version $LatestVersion of the Power Platform CLI was not installed: $PacPath"
+		}
+	}
+
+	return $PacPath
+}
+
+<#
+	.SYNOPSIS
+	Shows the signed-in user of the Power Platform CLI. If there is no auth profile, creates one for the environment (interactive sign-in).
+
+	.PARAMETER PacPath
+	The full path of pac.exe.
+
+	.PARAMETER Environment
+	The URL or ID of the Power Platform environment.
+#>
+function Connect-DidaPacEnvironment
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		[String]$PacPath,
+
+		[Parameter(Mandatory = $true)]
+		[String]$Environment
+	)
+
+	$WhoOutput = @(& $PacPath auth who)
+	if ($LASTEXITCODE -eq 0)
+	{
+		Write-Host "Power Platform CLI: $(@($WhoOutput | Where-Object { $_ -match '\S' })[0])"
+		return
+	}
+
+	Write-Host 'The Power Platform CLI has no auth profile. Sign in to the environment...'
+	Invoke-DidaTool -FilePath $PacPath -ArgumentList @('auth', 'create', '--environment', $Environment)
+}
+
 <#
 	.SYNOPSIS
 	Deletes and creates again a sub folder of the artifacts folder in the repository root, and returns its full path.
 
 	.PARAMETER Name
-	The relative path of the sub folder (for example 'Build' or 'DeployablePackage\LCS').
+	The relative path of the sub folder (for example 'Build' or 'DeployablePackage\_temp').
 #>
 function Reset-DidaArtifactsFolder
 {
@@ -227,4 +370,5 @@ function Reset-DidaArtifactsFolder
 	return $Folder
 }
 
-Export-ModuleMember -Function Resolve-AosPackagesLocalFolder, Get-DidaModel, Invoke-DidaTool, Write-DidaDiagnostics, Reset-DidaArtifactsFolder
+Export-ModuleMember -Function Resolve-AosPackagesLocalFolder, Get-DidaModel, Invoke-DidaTool, Write-DidaDiagnostics, Reset-DidaArtifactsFolder,
+	Get-DidaUdePackageFolder, Install-DidaPacCli, Connect-DidaPacEnvironment

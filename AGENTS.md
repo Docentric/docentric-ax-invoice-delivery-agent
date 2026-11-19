@@ -12,7 +12,7 @@ D365FO X++ model that adds a Business Skill and a small form extension for the D
 | `Metadata/.../AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md` | Business Skill for the D365FO agent. This is product content, not an instruction for coding agents. |
 | `Projects/DocentricAXInvoiceDeliveryAgent` | Visual Studio solution (`.slnx`) and D365FO project (`.rnrproj`). |
 | `AOS_*MetadataSymbolicLinks.ps1` | Link the model into PackagesLocalDirectory (see README). |
-| `_Scripts/` (`AOS_BuildModel.ps1`, `AOS_ExportModel.ps1`, `AOS_ExportDeployablePackage.ps1`, `AOS_Common.psm1`) | Build the model, export the model file, create the LCS and UDE deployable packages (see README). |
+| `_Scripts/` (`AOS_BuildModel.ps1`, `AOS_ExportModel.ps1`, `AOS_ExportDeployablePackage.ps1`, `PPAC_DeployPackage.ps1`, `PPAC_RemovePackage.ps1`, `AOS_Common.psm1`) | Build the model, export the model file, create the LCS and UDE deployable packages, deploy the UDE package to and remove the model from a Power Platform environment (see README). |
 | `artifacts/` | Output of the build and export scripts. Not committed (`.gitignore`). |
 | `.claude/skills/` | Development workflow skills, used by Copilot and Claude Code. |
 | `docs/plans/` | Implementation plans. Not committed (`.gitignore`). |
