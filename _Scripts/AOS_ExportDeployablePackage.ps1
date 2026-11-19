@@ -1,6 +1,6 @@
 <#
 	.SYNOPSIS
-	Creates the deployable packages of the D365FO model DocInvoiceDeliveryAgent for LCS and UDE environments.
+	Creates the deployable packages of the D365FO model DocentricAXInvoiceDeliveryAgent for LCS and UDE environments.
 
 	.DESCRIPTION
 	*** Script version: AOS_ExportDeployablePackage.ps1 v1.0 ***
@@ -8,10 +8,10 @@
 	Creates the deployable packages from the build output of the model, with the D365FO packaging tools in
 	AOSService\PackagesLocalDirectory\bin (CreatePackage.psm1, Microsoft.Dynamics.AXCreateDeployablePackageBase.dll, ModelUtil.exe):
 
-	- LCS: 'artifacts\DeployablePackage\LCS\DocInvoiceDeliveryAgent-<version>.zip'
+	- LCS: 'artifacts\DeployablePackage\LCS\DocentricAXInvoiceDeliveryAgent-<version>.zip'
 	  A deployable package (runtime package merged with the deployable base package).
 	  Upload it to the LCS Asset library, or apply it to a cloud-hosted environment.
-	- UDE: 'artifacts\DeployablePackage\UDE\DocInvoiceDeliveryAgent-<version>\'
+	- UDE: 'artifacts\DeployablePackage\UDE\DocentricAXInvoiceDeliveryAgent-<version>\'
 	  A unified package, converted from the LCS deployable package with 'ModelUtil.exe -convertToUnifiedPackage'.
 	  Deploy it to a Power Platform (UDE) environment with 'pac package deploy --package <folder>\TemplatePackage.dll'.
 
