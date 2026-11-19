@@ -2,7 +2,7 @@
 #
 # Formatting rules for the repository files.
 # The D365FO model (X++ source and AOT metadata) has its own rules in
-# Metadata/DocentricAXInvoiceDeliveryAgent/.editorconfig. That file is in the folder that
+# Metadata/DocentricInvoiceDeliveryAgent/.editorconfig. That file is in the folder that
 # is linked into PackagesLocalDirectory, so the rules also apply when Visual Studio
 # opens the model through the symbolic link.
 
