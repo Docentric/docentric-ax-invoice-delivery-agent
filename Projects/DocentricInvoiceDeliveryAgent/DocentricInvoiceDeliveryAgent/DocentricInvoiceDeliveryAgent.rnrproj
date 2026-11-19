@@ -12,7 +12,7 @@
     <RunAppCheckerRules>True</RunAppCheckerRules>
     <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
     <DeployOnline>True</DeployOnline>
-    <ProjectGuid>{d4936848-94e4-582f-6e8c-7504370eee24}</ProjectGuid>
+    <ProjectGuid>{f1854aca-2e97-1853-0228-590b713fa8cd}</ProjectGuid>
     <Name>DocentricInvoiceDeliveryAgent</Name>
     <RootNamespace>DocentricInvoiceDeliveryAgent</RootNamespace>
     <StartupType>Class</StartupType>
