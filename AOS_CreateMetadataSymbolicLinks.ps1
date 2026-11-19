@@ -42,7 +42,7 @@ param
 Set-StrictMode -Version 3.0
 
 ## Core model folder names
-$DocInvoiceDeliveryAgent = @("DocInvoiceDeliveryAgent")
+$DocentricAXInvoiceDeliveryAgent = @("DocentricAXInvoiceDeliveryAgent")
 
 ## Searching for AOS folder
 $AOSMetadataPath = ""
@@ -78,7 +78,7 @@ Write-Host "GIT Metadata Folder: $RepoMetadataPath"
 Write-Host "`nStarting to register AOS metadata symbolic links...`n"
 
 $ModelsToInstall = @()
-$ModelsToInstall += $DocInvoiceDeliveryAgent
+$ModelsToInstall += $DocentricAXInvoiceDeliveryAgent
 
 $RepoModelFolders = Get-ChildItem $RepoMetadataPath -Directory
 foreach ($ModelFolder in $RepoModelFolders)

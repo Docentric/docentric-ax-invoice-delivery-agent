@@ -2,13 +2,13 @@
 <AxModelInfo xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 	<AppliedUpdates xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 	<Customization>Allow</Customization>
-	<Description>Set of tools and skills to help troubleshoot invoice delivery challenges with agents.</Description>
-	<DisplayName>Docentric AX Invoice Delivery Agent</DisplayName>
+	<Description>Business skill and form extension that help AI agents find why invoice emails were not delivered, resend them to the correct address and update the customer's invoice email address if needed. Requires Docentric AX Free Edition. This is a proof of concept project.</Description>
+	<DisplayName>Docentric AX Invoice Delivery Agent POC</DisplayName>
 	<Id>896000912</Id>
 	<InternalsVisibleTo xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 	<Layer>8</Layer>
 	<Locked>false</Locked>
-	<ModelModule>DocInvoiceDeliveryAgent</ModelModule>
+	<ModelModule>DocentricAXInvoiceDeliveryAgent</ModelModule>
 	<ModelReferences xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
 		i:nil="true" />
 	<ModuleReferences xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
@@ -16,7 +16,7 @@
 		<d2p1:string>ApplicationFoundation</d2p1:string>
 		<d2p1:string>DocentricAX</d2p1:string>
 	</ModuleReferences>
-	<Name>Docentric AX Invoice Delivery Agent</Name>
+	<Name>DocentricAXInvoiceDeliveryAgent</Name>
 	<Publisher>Docentric</Publisher>
 	<SolutionId>00000000-0000-0000-0000-000000000000</SolutionId>
 	<VersionBuild>0</VersionBuild>

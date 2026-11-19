@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
-    <Model>DocInvoiceDeliveryAgent</Model>
+    <Model>DocentricAXInvoiceDeliveryAgent</Model>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <OutputPath>bin</OutputPath>
     <SchemaVersion>2.0</SchemaVersion>
@@ -13,8 +13,8 @@
     <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
     <DeployOnline>True</DeployOnline>
     <ProjectGuid>{d4936848-94e4-582f-6e8c-7504370eee24}</ProjectGuid>
-    <Name>DocInvoiceDeliveryAgent</Name>
-    <RootNamespace>DocInvoiceDeliveryAgent</RootNamespace>
+    <Name>DocentricAXInvoiceDeliveryAgent</Name>
+    <RootNamespace>DocentricAXInvoiceDeliveryAgent</RootNamespace>
     <StartupType>Class</StartupType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
