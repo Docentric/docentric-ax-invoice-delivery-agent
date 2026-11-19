@@ -6,6 +6,16 @@
     <File Path="../../AOS_CreateMetadataSymbolicLinks.ps1" />
     <File Path="../../AOS_RemoveMetadataSymbolicLinks.ps1" />
   </Folder>
+  <Folder Name="/Scripts/Build&amp;Export/">
+    <File Path="../../_Scripts/AOS_BuildModel.ps1" />
+    <File Path="../../_Scripts/AOS_Common.psm1" />
+    <File Path="../../_Scripts/AOS_ExportDeployablePackage.ps1" />
+    <File Path="../../_Scripts/AOS_ExportModel.ps1" />
+  </Folder>
+  <Folder Name="/Scripts/Deploy/">
+    <File Path="../../_Scripts/PPAC_DeployPackage.ps1" />
+    <File Path="../../_Scripts/PPAC_RemovePackage.ps1" />
+  </Folder>
   <Folder Name="/Solution items/">
     <File Path="../../LICENSE" />
     <File Path="../../README.md" />

@@ -8,12 +8,15 @@
 	Creates the deployable packages from the build output of the model, with the D365FO packaging tools in
 	AOSService\PackagesLocalDirectory\bin (CreatePackage.psm1, Microsoft.Dynamics.AXCreateDeployablePackageBase.dll, ModelUtil.exe):
 
-	- LCS: 'artifacts\DeployablePackage\LCS\DocentricAXInvoiceDeliveryAgent-<version>.zip'
+	- LCS: 'artifacts\DeployablePackage\DocentricAXInvoiceDeliveryAgent-<version>-LCS.zip'
 	  A deployable package (runtime package merged with the deployable base package).
 	  Upload it to the LCS Asset library, or apply it to a cloud-hosted environment.
-	- UDE: 'artifacts\DeployablePackage\UDE\DocentricAXInvoiceDeliveryAgent-<version>\'
+	- UDE: 'artifacts\DeployablePackage\DocentricAXInvoiceDeliveryAgent-<version>-UDE\'
 	  A unified package, converted from the LCS deployable package with 'ModelUtil.exe -convertToUnifiedPackage'.
 	  Deploy it to a Power Platform (UDE) environment with 'pac package deploy --package <folder>\TemplatePackage.dll'.
+	  'artifacts\DeployablePackage\DocentricAXInvoiceDeliveryAgent-<version>-UDE.zip' contains the content of this folder.
+
+	The script replaces only the previous output of the selected target.
 
 	The version is read from the model descriptor (VersionMajor.VersionMinor.VersionBuild).
 	Build the model first (.\_Scripts\AOS_BuildModel.ps1 or Visual Studio). The script does not build the model.
@@ -96,6 +99,7 @@ try
 	}
 
 	$TempPath = Reset-DidaArtifactsFolder -Name 'DeployablePackage\_temp'
+	$OutputPath = Split-Path -Path $TempPath -Parent
 	$PackageFileName = "$($Model.Module)-$($Model.Version)"
 
 	Write-Host "AOS PackagesLocal Folder: $AOSMetadataPath"
@@ -147,7 +151,9 @@ try
 	if ($Target -eq 'All' -or $Target -eq 'UDE')
 	{
 		Write-Host "Converting to the UDE unified package...`n"
-		$UdePackagePath = Join-Path (Reset-DidaArtifactsFolder -Name 'DeployablePackage\UDE') $PackageFileName
+		## Remove the previous UDE output (folder and ZIP file) of all versions.
+		Get-ChildItem -Path $OutputPath -Filter "$($Model.Module)-*-UDE*" | Remove-Item -Recurse -Force
+		$UdePackagePath = Join-Path $OutputPath "$PackageFileName-UDE"
 		Invoke-DidaTool -FilePath (Join-Path $ToolsPath 'ModelUtil.exe') -ArgumentList @(
 			'-convertToUnifiedPackage',
 			"-file=$LcsPackagePath",
@@ -157,11 +163,33 @@ try
 			throw "The UDE unified package was not created: $UdePackagePath"
 		}
 		Write-Host "`nThe UDE unified package was created: $UdePackagePath" -ForegroundColor Green
+
+		## The ZIP file contains only the content of the folder, without the folder itself. The entries are added one by one,
+		## because ZipFile.CreateFromDirectory in Windows PowerShell 5.1 writes entry names with backslashes.
+		$UdeZipPath = "$UdePackagePath.zip"
+		Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
+		$ZipArchive = [System.IO.Compression.ZipFile]::Open($UdeZipPath, [System.IO.Compression.ZipArchiveMode]::Create)
+		try
+		{
+			foreach ($File in Get-ChildItem -Path $UdePackagePath -File -Recurse -Force)
+			{
+				$EntryName = $File.FullName.Substring($UdePackagePath.Length).TrimStart('\').Replace('\', '/')
+				[System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($ZipArchive, $File.FullName, $EntryName,
+					[System.IO.Compression.CompressionLevel]::Optimal) | Out-Null
+			}
+		}
+		finally
+		{
+			$ZipArchive.Dispose()
+		}
+		Write-Host "The UDE unified package ZIP file was created: $UdeZipPath" -ForegroundColor Green
 	}
 
 	if ($Target -eq 'All' -or $Target -eq 'LCS')
 	{
-		$LcsOutputPath = Join-Path (Reset-DidaArtifactsFolder -Name 'DeployablePackage\LCS') "$PackageFileName.zip"
+		## Remove the previous LCS output of all versions.
+		Get-ChildItem -Path $OutputPath -Filter "$($Model.Module)-*-LCS.zip" -File | Remove-Item -Force
+		$LcsOutputPath = Join-Path $OutputPath "$PackageFileName-LCS.zip"
 		Move-Item -Path $LcsPackagePath -Destination $LcsOutputPath
 		Write-Host "`nThe LCS deployable package was created: $LcsOutputPath" -ForegroundColor Green
 	}

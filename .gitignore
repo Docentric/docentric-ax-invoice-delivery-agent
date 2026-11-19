@@ -12,7 +12,7 @@
 /build/**
 
 ############################################################################################################################################
-## Build logs and exported model and deployable packages (AOS_BuildModel.ps1, AOS_ExportModel.ps1, AOS_ExportDeployablePackage.ps1)
+## Build logs, exported model, deployable packages and deployment logs (AOS_BuildModel.ps1, AOS_ExportModel.ps1, AOS_ExportDeployablePackage.ps1, PPAC_DeployPackage.ps1)
 ############################################################################################################################################
 /artifacts
 /artifacts/*

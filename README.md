@@ -118,12 +118,22 @@ Use these scripts on the D365FO development environment (with **:\AOSService\Pac
 `.\_Scripts\AOS_ExportModel.ps1`
 
 3. **Create the deployable packages.** Build the model first. Run the script in Windows PowerShell 5.1. Use `-Target LCS` or `-Target UDE` to create only one package (default: `All`).
-   - LCS: `artifacts\DeployablePackage\LCS\DocentricAXInvoiceDeliveryAgent-<version>.zip`. Upload it to the LCS Asset library, or apply it to a cloud-hosted environment.
-   - UDE: `artifacts\DeployablePackage\UDE\DocentricAXInvoiceDeliveryAgent-<version>\`. A unified package, converted from the LCS package with `ModelUtil.exe -convertToUnifiedPackage`. Deploy it to a Power Platform environment with `pac package deploy --package <folder>\TemplatePackage.dll`.
+   - LCS: `artifacts\DeployablePackage\DocentricAXInvoiceDeliveryAgent-<version>-LCS.zip`. Upload it to the LCS Asset library, or apply it to a cloud-hosted environment.
+   - UDE: `artifacts\DeployablePackage\DocentricAXInvoiceDeliveryAgent-<version>-UDE\`. A unified package, converted from the LCS package with `ModelUtil.exe -convertToUnifiedPackage`. Deploy it to a Power Platform environment with `pac package deploy --package <folder>\TemplatePackage.dll`. The file `artifacts\DeployablePackage\DocentricAXInvoiceDeliveryAgent-<version>-UDE.zip` contains the content of this folder.
 
 `.\_Scripts\AOS_ExportDeployablePackage.ps1`
 
-All scripts accept `-PackagesLocalFolder` for a custom PackagesLocalDirectory path. The scripts were tested on a cloud-hosted development environment. A UDE development machine keeps the Microsoft packages and your own metadata in different folders, which these scripts do not support.
+4. **Deploy the UDE package to a Power Platform environment.** The script deploys the UDE package of the current model version with `pac package deploy` to the environment that you specify (URL or ID). It writes the log to `artifacts\PPAC\Deploy`. Use `-PackagePath` to deploy another `TemplatePackage.dll` or UDE package ZIP file. Use `-WhatIf` to check the CLI and the package without a deployment.
+
+`.\_Scripts\PPAC_DeployPackage.ps1 -Environment https://contoso-dev.crm4.dynamics.com/`
+
+5. **Remove the model from a Power Platform environment.** The script uploads the model package (`PackageAssets\docentricaxinvoicedeliveryagent_<n>_<n>_<n>_<n>_managed.zip` of the UDE package) with `pac package deploy --package-type erp --build-type Delete`. These are preview features of the Power Platform CLI. Before the removal, make sure that no other module on the environment references the model. The script asks for confirmation. Use `-Confirm:$false` to skip it.
+
+`.\_Scripts\PPAC_RemovePackage.ps1 -Environment https://contoso-dev.crm4.dynamics.com/`
+
+The deploy and remove scripts do not need PackagesLocalDirectory. They make sure that the latest version of the Power Platform CLI (Windows MSI) is installed. If the CLI is not installed, or a newer version is available, the scripts install it for the current user. The scripts do not change the version that `pac use` selects for the `pac` command. If the CLI has no auth profile, the scripts open the sign-in.
+
+All AOS scripts accept `-PackagesLocalFolder` for a custom PackagesLocalDirectory path. The scripts were tested on a cloud-hosted development environment. A UDE development machine keeps the Microsoft packages and your own metadata in different folders, which these scripts do not support.
 
 ## Folder structure
 
@@ -137,8 +147,10 @@ The repository starts with the following folder structure:
   - `AOS_BuildModel.ps1`: *Script to build the model and run the Best Practice checks.*
   - `AOS_ExportModel.ps1`: *Script to export the model file (.axmodel) to the artifacts folder.*
   - `AOS_ExportDeployablePackage.ps1`: *Script to create the LCS deployable package and the UDE unified package in the artifacts folder.*
-  - `AOS_Common.psm1`: *Shared functions for the build and export scripts.*
-- `artifacts`: *Build logs, model file and deployable packages that the scripts create. Git ignores this folder.*
+  - `PPAC_DeployPackage.ps1`: *Script to deploy the UDE unified package to a Power Platform environment.*
+  - `PPAC_RemovePackage.ps1`: *Script to remove the model from a Power Platform environment.*
+  - `AOS_Common.psm1`: *Shared functions for the build, export and deploy scripts.*
+- `artifacts`: *Build logs, model file, deployable packages and deployment logs that the scripts create. Git ignores this folder.*
 - `.gitattributes`: *Defines project-based rules for manipulating files and paths attributes when a Git action is performed (e.g., line-endings, file compare, etc.).*
 - `.gitignore`: *Defines project-based rules for ignoring files and folders in the Git repository.*
 - `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`: *Instructions for AI coding agents (GitHub Copilot, Claude Code), including the code review checklist.*
