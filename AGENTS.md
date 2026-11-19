@@ -12,6 +12,8 @@ D365FO X++ model that adds a Business Skill and a small form extension for the D
 | `Metadata/.../AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md` | Business Skill for the D365FO agent. This is product content, not an instruction for coding agents. |
 | `Projects/DocInvoiceDeliveryAgent` | Visual Studio solution (`.slnx`) and D365FO project (`.rnrproj`). |
 | `AOS_*MetadataSymbolicLinks.ps1` | Link the model into PackagesLocalDirectory (see README). |
+| `_Scripts/` (`AOS_BuildModel.ps1`, `AOS_ExportModel.ps1`, `AOS_ExportDeployablePackage.ps1`, `AOS_Common.psm1`) | Build the model, export the model file, create the LCS and UDE deployable packages (see README). |
+| `artifacts/` | Output of the build and export scripts. Not committed (`.gitignore`). |
 | `.claude/skills/` | Development workflow skills, used by Copilot and Claude Code. |
 | `docs/plans/` | Implementation plans. Not committed (`.gitignore`). |
 
@@ -56,8 +58,8 @@ Business Skill (`SKILL.md`):
 
 ## Build and Verify
 
-- Build the model `DocInvoiceDeliveryAgent` in Visual Studio with Best Practice checks on. Copilot in Visual Studio uses its build tool. If you cannot build (for example, Claude Code in a terminal), ask the user to build and share the Error List.
-- Build logs: `BuildModelResult.xml` and `BPCheck.xml` in `<PackagesLocalDirectory>\DocInvoiceDeliveryAgent\`.
+- Build the model `DocInvoiceDeliveryAgent` in Visual Studio with Best Practice checks on. Copilot in Visual Studio uses its build tool. On the D365FO development environment, you can also run `.\_Scripts\AOS_BuildModel.ps1` in a terminal. If you cannot build (for example, a terminal on another machine), ask the user to build and share the Error List.
+- Build logs: `BuildModelResult.xml` and `BPCheck.xml` in `<PackagesLocalDirectory>\DocInvoiceDeliveryAgent\` (Visual Studio), or `Xppc.xml` and `BPCheck.xml` in `artifacts\Build\` (`_Scripts\AOS_BuildModel.ps1`).
 - There are no automated tests. Describe manual verification in D365FO, and for `SKILL.md` changes, test the agent scenario through the ERP MCP server.
 - Never claim that a build or test passed without evidence.
 
