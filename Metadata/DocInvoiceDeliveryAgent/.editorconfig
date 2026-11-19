@@ -1,0 +1,47 @@
+# EditorConfig: https://editorconfig.org
+#
+# Formatting rules for the D365FO package DocInvoiceDeliveryAgent (X++ source and AOT metadata).
+# This folder is linked into PackagesLocalDirectory, so root = true stops the search here.
+# The rules are then the same through the repository path and through the symbolic link.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+indent_style = space
+indent_size = 4
+tab_width = 4
+insert_final_newline = false
+trim_trailing_whitespace = true
+
+[.editorconfig]
+insert_final_newline = true
+
+# X++ source in the Visual Studio X++ code editor.
+# Same as the existing X++ code: 4 spaces, no tabs.
+[*.xpp]
+indent_style = space
+indent_size = 4
+
+# AOT metadata XML, written by the D365FO tools: tabs for the XML structure,
+# X++ code in CDATA with 4 spaces, CRLF, no final newline.
+# Do not trim trailing whitespace, because the tools control the content and diffs must stay small.
+[*.xml]
+indent_style = tab
+indent_size = tab
+trim_trailing_whitespace = false
+
+# Best Practice suppression list. Edited manually.
+[**/AxIgnoreDiagnosticList/*.xml]
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+
+# Business Skill content (SKILL.md and the resource text copy). Keep the existing LF line endings.
+# Spaces only, so that the YAML front matter stays valid.
+[{**/AxSkill/**.md,**/AxResource/ResourceContent/**.txt}]
+end_of_line = lf
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = false

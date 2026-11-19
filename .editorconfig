@@ -1,0 +1,36 @@
+# EditorConfig: https://editorconfig.org
+#
+# Formatting rules for the repository files.
+# The D365FO model (X++ source and AOT metadata) has its own rules in
+# Metadata/DocInvoiceDeliveryAgent/.editorconfig. That file is in the folder that
+# is linked into PackagesLocalDirectory, so the rules also apply when Visual Studio
+# opens the model through the symbolic link.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+indent_style = space
+indent_size = 4
+tab_width = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Two trailing spaces are a hard line break in Markdown.
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{json,jsonc,yml,yaml}]
+indent_size = 2
+
+# Visual Studio solution and D365FO project files. Keep the format that Visual Studio writes.
+[*.{slnx,rnrproj}]
+indent_size = 2
+
+[*.rnrproj]
+insert_final_newline = false
+
+# The existing scripts use tabs for indentation.
+[*.{ps1,psm1,psd1}]
+indent_style = tab
