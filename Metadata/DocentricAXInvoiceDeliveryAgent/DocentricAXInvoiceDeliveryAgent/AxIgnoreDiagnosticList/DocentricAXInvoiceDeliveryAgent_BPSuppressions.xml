@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <IgnoreDiagnostics>
-  <Name>DocentricInvoiceDeliveryAgent_BPSuppressions</Name>
+  <Name>DocentricAXInvoiceDeliveryAgent_BPSuppressions</Name>
   <Items>
     <Diagnostic>
       <DiagnosticType>CodeAnalysis</DiagnosticType>
