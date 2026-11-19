@@ -76,11 +76,11 @@ The **Message > Duplicate** button comes from the X++ extension in this model, s
 You can add a skill to a model as a skill object (`AxSkill`) or as a resource object (`AxResource`). Resource objects are legacy, but D365FO still supports them. This model contains both:
 
 - When the `McpBusinessSkillMetadataProviderFlight` flight is enabled, D365FO loads only skill objects: `AxSkill/DocInvoiceEmailInvestigationSkill` that contains `SKILL.md`.
-- When the flight is disabled, you need extension of `McpBusinessSkillFromResourceProvider` class to load your resources. In our case `McpBusinessSkillFromResourceProvider_DIDA_Extension` loads the resource `DocInvoiceEmailInvestigationSkill` (`docentric-invoice-email-investigation-skill.txt`).
+- When the flight is disabled, you need an extension of the class `McpBusinessSkillFromResourceProvider` to load your resources. In our case `McpBusinessSkillFromResourceProvider_DIDA_Extension` loads the resource `DocInvoiceEmailInvestigationSkill` (`docentric-invoice-email-investigation-skill.txt`).
 
-Keep the resource file identical to `SKILL.md` in skill object.
+Keep the resource file identical to `SKILL.md` in the skill object.
 
-> NOTE: In version 10.0.50 (preview), D365FO loads skill objects only from models in the SYS layer. Microsoft has confirmed the bug and will fix it, but as a workaroundwe we have put this model in the SYS layer.
+> NOTE: In version 10.0.50 (preview), D365FO loads skill objects only from models in the SYS layer. Microsoft has confirmed the bug and will fix it, but as a workaround, we have put this model in the SYS layer.
 
 ## Instructions
 
@@ -139,7 +139,7 @@ All AOS scripts accept `-PackagesLocalFolder` for a custom PackagesLocalDirector
 
 The repository starts with the following folder structure:
 
-- `Metadata`: *Folder containing the D365FO model (`DocentricAXInvoiceDeliveryAgent`, model name `Docentric AX Invoice Delivery Agent POC`)*
+- `Metadata`: *Folder containing the D365FO model (`DocentricAXInvoiceDeliveryAgent`, display name `Docentric AX Invoice Delivery Agent POC`)*
 - `Projects`: *Folder containing Visual Studio files (e.g., solutions, projects gluing the D365FO model artifacts).*
 - `AOS_CreateMetadataSymbolicLinks.ps1`: *Script to create the symbolic links to the AosService\PackagesLocalDirectory folder.*
 - `AOS_RemoveMetadataSymbolicLinks.ps1`: *Script to remove the symbolic links from the AosService\PackagesLocalDirectory folder.*

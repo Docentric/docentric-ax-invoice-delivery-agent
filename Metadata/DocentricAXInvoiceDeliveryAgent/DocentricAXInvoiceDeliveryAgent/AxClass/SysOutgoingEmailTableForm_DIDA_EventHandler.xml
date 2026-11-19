@@ -6,7 +6,7 @@
 /// <summary>
 /// The class SysOutgoingEmailTableForm_DIDA_EventHandler contains event handlers for the form SysOutgoingEmailTable.
 /// </summary>
-public class SysOutgoingEmailTableForm_DIDA_EventHandler
+public final class SysOutgoingEmailTableForm_DIDA_EventHandler
 {
 }
 ]]></Declaration>
