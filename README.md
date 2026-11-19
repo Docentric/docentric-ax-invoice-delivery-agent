@@ -94,6 +94,26 @@ Both scripts detect the D365FO package's local folder, but with UDE environments
 
 > NOTE: To remove use the same parameter with script `.\AOS_RemoveMetadataSymbolicLinks.ps1 -PackagesLocalFolder "C:\CustomAOS\PackagesLocalDirectory"`.
 
+## Build and export
+
+Use these scripts on the D365FO development environment (with **:\AOSService\PackagesLocalDirectory**) after you add the model with `.\AOS_CreateMetadataSymbolicLinks.ps1`. The scripts use the D365FO tools in **PackagesLocalDirectory\bin** and do not need administrator rights. They write their output to the `artifacts` folder of the repository. Git ignores this folder. Each script replaces its previous output. The file names contain the model version from the model descriptor (for example, `1.0.0`).
+
+1. **Build the model.** The script compiles the X++ code (with cross references and AppChecker rules), the labels and the reports, and runs the Best Practice checks. The build output goes to the model folder, as with a build in Visual Studio. The logs go to `artifacts\Build`. Use `-SkipBestPractices` to skip the Best Practice checks. Do not build in Visual Studio at the same time.
+
+`.\_Scripts\AOS_BuildModel.ps1`
+
+2. **Export the model file.** The script exports the model source to `artifacts\Model\DocInvoiceDeliveryAgent-<version>.axmodel`. Import it on another development environment with `ModelUtil.exe -import`.
+
+`.\_Scripts\AOS_ExportModel.ps1`
+
+3. **Create the deployable packages.** Build the model first. Run the script in Windows PowerShell 5.1. Use `-Target LCS` or `-Target UDE` to create only one package (default: `All`).
+   - LCS: `artifacts\DeployablePackage\LCS\DocInvoiceDeliveryAgent-<version>.zip`. Upload it to the LCS Asset library, or apply it to a cloud-hosted environment.
+   - UDE: `artifacts\DeployablePackage\UDE\DocInvoiceDeliveryAgent-<version>\`. A unified package, converted from the LCS package with `ModelUtil.exe -convertToUnifiedPackage`. Deploy it to a Power Platform environment with `pac package deploy --package <folder>\TemplatePackage.dll`.
+
+`.\_Scripts\AOS_ExportDeployablePackage.ps1`
+
+All scripts accept `-PackagesLocalFolder` for a custom PackagesLocalDirectory path. The scripts were tested on a cloud-hosted development environment. A UDE development machine keeps the Microsoft packages and your own metadata in different folders, which these scripts do not support.
+
 ## Folder structure
 
 The repository starts with the following folder structure:
@@ -102,6 +122,12 @@ The repository starts with the following folder structure:
 - `Projects`: *Folder containing Visual Studio files (e.g., solutions, projects gluing the D365FO model artifacts).*
 - `AOS_CreateMetadataSymbolicLinks.ps1`: *Script to create the symbolic links to the AosService\PackagesLocalDirectory folder.*
 - `AOS_RemoveMetadataSymbolicLinks.ps1`: *Script to remove the symbolic links from the AosService\PackagesLocalDirectory folder.*
+- `_Scripts`: *Folder containing the build and export scripts.*
+  - `AOS_BuildModel.ps1`: *Script to build the model and run the Best Practice checks.*
+  - `AOS_ExportModel.ps1`: *Script to export the model file (.axmodel) to the artifacts folder.*
+  - `AOS_ExportDeployablePackage.ps1`: *Script to create the LCS deployable package and the UDE unified package in the artifacts folder.*
+  - `AOS_Common.psm1`: *Shared functions for the build and export scripts.*
+- `artifacts`: *Build logs, model file and deployable packages that the scripts create. Git ignores this folder.*
 - `.gitattributes`: *Defines project-based rules for manipulating files and paths attributes when a Git action is performed (e.g., line-endings, file compare, etc.).*
 - `.gitignore`: *Defines project-based rules for ignoring files and folders in the Git repository.*
 - `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`: *Instructions for AI coding agents (GitHub Copilot, Claude Code), including the code review checklist.*
