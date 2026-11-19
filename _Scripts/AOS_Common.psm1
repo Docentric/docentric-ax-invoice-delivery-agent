@@ -1,6 +1,6 @@
 <#
 	.SYNOPSIS
-	Shared functions for the build and export scripts of the D365FO model DocentricAXInvoiceDeliveryAgent.
+	Shared functions for the build and export scripts of the D365FO model DocentricInvoiceDeliveryAgent.
 
 	.DESCRIPTION
 	*** Script version: AOS_Common.psm1 v1.0 ***
@@ -12,7 +12,7 @@
 ## https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/set-strictmode
 Set-StrictMode -Version 3.0
 
-$ModelModule = 'DocentricAXInvoiceDeliveryAgent'
+$ModelModule = 'DocentricInvoiceDeliveryAgent'
 $RepositoryRoot = Split-Path -Path $PSScriptRoot -Parent
 $ArtifactsRoot = Join-Path $RepositoryRoot 'artifacts'
 

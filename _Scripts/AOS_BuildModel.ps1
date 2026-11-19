@@ -1,6 +1,6 @@
 <#
 	.SYNOPSIS
-	Builds the D365FO model DocentricAXInvoiceDeliveryAgent.
+	Builds the D365FO model DocentricInvoiceDeliveryAgent.
 
 	.DESCRIPTION
 	*** Script version: AOS_BuildModel.ps1 v1.0 ***

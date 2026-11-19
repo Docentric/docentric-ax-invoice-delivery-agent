@@ -8,9 +8,9 @@ D365FO X++ model that adds a Business Skill and a small form extension for the D
 
 | Path | Description |
 |------|-------------|
-| `Metadata/DocentricAXInvoiceDeliveryAgent` | Package and model `DocentricAXInvoiceDeliveryAgent` ("Docentric AX Invoice Delivery Agent POC"). References `ApplicationPlatform`, `ApplicationFoundation`, `DocentricAX`. |
+| `Metadata/DocentricInvoiceDeliveryAgent` | Package and model `DocentricInvoiceDeliveryAgent` ("Docentric AX Invoice Delivery Agent POC"). References `ApplicationPlatform`, `ApplicationFoundation`, `DocentricAX`. |
 | `Metadata/.../AxSkill/DocInvoiceEmailInvestigationSkill/SKILL.md` | Business Skill for the D365FO agent. This is product content, not an instruction for coding agents. |
-| `Projects/DocentricAXInvoiceDeliveryAgent` | Visual Studio solution (`.slnx`) and D365FO project (`.rnrproj`). |
+| `Projects/DocentricInvoiceDeliveryAgent` | Visual Studio solution (`.slnx`) and D365FO project (`.rnrproj`). |
 | `AOS_*MetadataSymbolicLinks.ps1` | Link the model into PackagesLocalDirectory (see README). |
 | `_Scripts/` (`AOS_BuildModel.ps1`, `AOS_ExportModel.ps1`, `AOS_ExportDeployablePackage.ps1`, `AOS_Common.psm1`) | Build the model, export the model file, create the LCS and UDE deployable packages (see README). |
 | `artifacts/` | Output of the build and export scripts. Not committed (`.gitignore`). |
@@ -49,7 +49,7 @@ Project identifier: `DIDA`. Do not use the Docentric Core identifiers (`DC`, `DC
 Compiler and Best Practice (BP) warnings:
 
 - Fix warnings first. Do not add new warnings.
-- Suppress only when a fix is not suitable and the user approves. Add the suppression to `AxIgnoreDiagnosticList\DocentricAXInvoiceDeliveryAgent_BPSuppressions.xml` in the model folder with `DiagnosticType`, `Severity`, `Path`, `Moniker`, `Message` copied from build output and a specific `Justification`. Commit it with the related code.
+- Suppress only when a fix is not suitable and the user approves. Add the suppression to `AxIgnoreDiagnosticList\DocentricInvoiceDeliveryAgent_BPSuppressions.xml` in the model folder with `DiagnosticType`, `Severity`, `Path`, `Moniker`, `Message` copied from build output and a specific `Justification`. Commit it with the related code.
 
 Business Skill (`SKILL.md`):
 
@@ -58,8 +58,8 @@ Business Skill (`SKILL.md`):
 
 ## Build and Verify
 
-- Build the model `DocentricAXInvoiceDeliveryAgent` in Visual Studio with Best Practice checks on. Copilot in Visual Studio uses its build tool. On the D365FO development environment, you can also run `.\_Scripts\AOS_BuildModel.ps1` in a terminal. If you cannot build (for example, a terminal on another machine), ask the user to build and share the Error List.
-- Build logs: `BuildModelResult.xml` and `BPCheck.xml` in `<PackagesLocalDirectory>\DocentricAXInvoiceDeliveryAgent\` (Visual Studio), or `Xppc.xml` and `BPCheck.xml` in `artifacts\Build\` (`_Scripts\AOS_BuildModel.ps1`).
+- Build the model `DocentricInvoiceDeliveryAgent` in Visual Studio with Best Practice checks on. Copilot in Visual Studio uses its build tool. On the D365FO development environment, you can also run `.\_Scripts\AOS_BuildModel.ps1` in a terminal. If you cannot build (for example, a terminal on another machine), ask the user to build and share the Error List.
+- Build logs: `BuildModelResult.xml` and `BPCheck.xml` in `<PackagesLocalDirectory>\DocentricInvoiceDeliveryAgent\` (Visual Studio), or `Xppc.xml` and `BPCheck.xml` in `artifacts\Build\` (`_Scripts\AOS_BuildModel.ps1`).
 - There are no automated tests. Describe manual verification in D365FO, and for `SKILL.md` changes, test the agent scenario through the ERP MCP server.
 - Never claim that a build or test passed without evidence.
 
@@ -68,7 +68,7 @@ Business Skill (`SKILL.md`):
 - `main` is always releasable. Never commit or push to `main`; all changes go through a pull request.
 - One short-lived branch per GitHub issue, from the latest `main`: `<type>/<issue>_<short-kebab-description>`. Types: `feature`, `bugfix`, `hotfix`, `chore`, `docs`. Without an issue: `chore/noissue_<description>`.
 - Keep the branch current by rebasing on or merging `main`. Delete it after merge.
-- Releases use Git tags `v<MAJOR.MINOR.PATCH>` (optional prerelease suffix, for example `v1.2.0-preview.0`). The model descriptor (`Metadata/DocentricAXInvoiceDeliveryAgent/Descriptor/DocentricAXInvoiceDeliveryAgent.xml`) must match: `VersionMajor.VersionMinor.VersionBuild` = `MAJOR.MINOR.PATCH`, `VersionRevision` = `0`. Change it in the PR that prepares the release.
+- Releases use Git tags `v<MAJOR.MINOR.PATCH>` (optional prerelease suffix, for example `v1.2.0-preview.0`). The model descriptor (`Metadata/DocentricInvoiceDeliveryAgent/Descriptor/DocentricInvoiceDeliveryAgent.xml`) must match: `VersionMajor.VersionMinor.VersionBuild` = `MAJOR.MINOR.PATCH`, `VersionRevision` = `0`. Change it in the PR that prepares the release.
 - Only maintainers create tags and releases. Do not create them unless asked.
 
 ## Commits and Pull Requests
@@ -83,7 +83,7 @@ Business Skill (`SKILL.md`):
 ## GitHub Access
 
 - Use the GitHub MCP server for all GitHub operations (issues, branches, pull requests, reviews). Fall back to the `gh` CLI only when MCP is unavailable. Use `git` for local commits and pushes.
-- MCP configuration: `.mcp.json` (Claude Code, needs the `GITHUB_PERSONAL_ACCESS_TOKEN` environment variable) and `Projects/DocentricAXInvoiceDeliveryAgent/.mcp.json` (Visual Studio, GitHub sign-in).
+- MCP configuration: `.mcp.json` (Claude Code, needs the `GITHUB_PERSONAL_ACCESS_TOKEN` environment variable) and `Projects/DocentricInvoiceDeliveryAgent/.mcp.json` (Visual Studio, GitHub sign-in).
 - Before you start, read the issue and check for existing branches and PRs.
 - Do not put tokens in prompts, files or commits.
 

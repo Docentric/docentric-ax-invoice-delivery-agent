@@ -2,6 +2,6 @@
 <AxResource xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 	<Name>DocInvoiceEmailInvestigationSkill</Name>
 	<FileName>docentric-invoice-email-investigation-skill.txt</FileName>
-	<RelativeUriInModelStore>DocentricAXInvoiceDeliveryAgent\DocentricAXInvoiceDeliveryAgent\AxResource\ResourceContent\Text\docentric-invoice-email-investigation-skill.txt</RelativeUriInModelStore>
+	<RelativeUriInModelStore>DocentricInvoiceDeliveryAgent\DocentricInvoiceDeliveryAgent\AxResource\ResourceContent\Text\docentric-invoice-email-investigation-skill.txt</RelativeUriInModelStore>
 	<TypeOfResource>Text</TypeOfResource>
 </AxResource>
